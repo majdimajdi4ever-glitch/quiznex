@@ -1,0 +1,200 @@
+
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>QUIZNEX - اختبر معلوماتك</title>
+<style>
+*{box-sizing:border-box}
+body{
+ margin:0;background:#100d19;color:white;
+ font-family:Arial,sans-serif;
+}
+header{
+ padding:22px;text-align:center;
+ background:#1b1429;border-bottom:1px solid #56358b;
+}
+.logo{font-size:30px;font-weight:900;color:#bb91ff}
+header p{color:#b9a9ce}
+main{max-width:700px;margin:auto;padding:20px}
+h1{text-align:center;font-size:27px}
+.intro{text-align:center;color:#bdb1cf}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:25px}
+.category{
+ background:#211a30;border:1px solid #493366;
+ padding:22px 10px;border-radius:15px;
+ color:white;font-size:17px;cursor:pointer;
+}
+.category:hover{background:#493078}
+.emoji{display:block;font-size:30px;margin-bottom:9px}
+.panel{
+ background:#211a30;border:1px solid #493366;
+ padding:20px;border-radius:17px;margin-top:20px;
+}
+button{
+ cursor:pointer;border:0;border-radius:10px;
+ padding:13px;background:#8c50df;color:white;
+ font-size:16px;font-weight:bold;
+}
+#answers{display:grid;gap:10px;margin:20px 0}
+.answer{
+ background:#30243f;color:white;
+ border:1px solid #60447e;
+}
+.answer.correct{background:#176b48}
+.answer.wrong{background:#873b4a}
+button:disabled{opacity:.8}
+.hidden{display:none}
+#result{text-align:center}
+.back{background:#393044;margin-top:12px}
+footer{text-align:center;color:#8f829f;padding:25px}
+</style>
+</head>
+<body>
+
+<header>
+ <div class="logo">QUIZNEX</div>
+ <p>THINK. PLAY. DISCOVER.</p>
+</header>
+
+<main>
+ <section id="home">
+  <h1>اختبر معلوماتك! 🧠</h1>
+  <p class="intro">اختر مجالك وابدأ التحدي.</p>
+  <div class="grid">
+   <button class="category" onclick="start('football')"><span class="emoji">⚽</span>كرة القدم</button>
+   <button class="category" onclick="start('geography')"><span class="emoji">🌍</span>الجغرافيا</button>
+   <button class="category" onclick="start('history')"><span class="emoji">🏛️</span>التاريخ</button>
+   <button class="category" onclick="start('space')"><span class="emoji">🪐</span>الفضاء</button>
+   <button class="category" onclick="start('science')"><span class="emoji">🔬</span>العلوم</button>
+   <button class="category" onclick="start('general')"><span class="emoji">🧠</span>ثقافة عامة</button>
+  </div>
+ </section>
+
+ <section id="quiz" class="panel hidden">
+  <div id="progress"></div>
+  <h2 id="question"></h2>
+  <div id="answers"></div>
+  <p id="feedback"></p>
+  <button id="next" class="hidden" onclick="nextQuestion()">السؤال التالي ←</button>
+  <button class="back" onclick="goHome()">العودة للرئيسية</button>
+ </section>
+
+ <section id="result" class="panel hidden">
+  <h2>انتهى التحدي! 🎉</h2>
+  <h1 id="score"></h1>
+  <p id="message"></p>
+  <button onclick="goHome()">العودة للأقسام</button>
+ </section>
+</main>
+
+<footer>QUIZNEX © 2026</footer>
+
+<script>
+const data={
+football:[
+["من فاز بكأس العالم 2022؟",["الأرجنتين","فرنسا","البرازيل","كرواتيا"],0],
+["كم لاعباً في فريق كرة القدم داخل الملعب؟",["10","11","12","9"],1],
+["ما النادي المعروف بلقب الملكي؟",["برشلونة","ليفربول","ريال مدريد","بايرن"],2]
+],
+geography:[
+["ما عاصمة اليابان؟",["بكين","طوكيو","سيول","بانكوك"],1],
+["ما أكبر محيط في العالم؟",["الأطلسي","الهندي","الهادئ","المتجمد"],2],
+["في أي قارة تقع البرازيل؟",["آسيا","أفريقيا","أوروبا","أمريكا الجنوبية"],3]
+],
+history:[
+["في أي عام انتهت الحرب العالمية الثانية؟",["1940","1945","1950","1939"],1],
+["أين قامت الحضارة الفرعونية؟",["مصر","اليونان","روما","الصين"],0],
+["من بنى مدينة بغداد المدورة؟",["هارون الرشيد","أبو جعفر المنصور","صلاح الدين","المأمون"],1]
+],
+space:[
+["ما أقرب كوكب إلى الشمس؟",["الزهرة","الأرض","عطارد","المريخ"],2],
+["ما أكبر كوكب في المجموعة الشمسية؟",["زحل","المشتري","نبتون","الأرض"],1],
+["ما اسم مجرتنا؟",["درب التبانة","أندروميدا","المثلث","السومبريرو"],0]
+],
+science:[
+["ما الغاز الذي تمتصه النباتات؟",["الأكسجين","النيتروجين","ثاني أكسيد الكربون","الهيدروجين"],2],
+["ما العضو الذي يضخ الدم؟",["الرئة","القلب","الكبد","الكلية"],1],
+["كم عدد عظام الإنسان البالغ عادة؟",["106","206","306","406"],1]
+],
+general:[
+["كم عدد أيام السنة الكبيسة؟",["364","365","366","367"],2],
+["ما أسرع حيوان بري؟",["الأسد","الفهد","الحصان","النمر"],1],
+["ما اللغة الرسمية في البرازيل؟",["الإسبانية","الإنجليزية","البرتغالية","الفرنسية"],2]
+]
+};
+
+let questions=[],index=0,points=0,locked=false;
+
+function start(category){
+ questions=data[category];
+ index=0;points=0;
+ document.getElementById("home").classList.add("hidden");
+ document.getElementById("result").classList.add("hidden");
+ document.getElementById("quiz").classList.remove("hidden");
+ showQuestion();
+}
+
+function showQuestion(){
+ locked=false;
+ let q=questions[index];
+ document.getElementById("progress").textContent=
+ "السؤال "+(index+1)+" من "+questions.length+" | النقاط: "+points;
+ document.getElementById("question").textContent=q[0];
+ document.getElementById("feedback").textContent="";
+ document.getElementById("next").classList.add("hidden");
+ let box=document.getElementById("answers");
+ box.innerHTML="";
+ q[1].forEach((answer,i)=>{
+  let b=document.createElement("button");
+  b.textContent=answer;
+  b.className="answer";
+  b.onclick=()=>check(i,b);
+  box.appendChild(b);
+ });
+}
+
+function check(choice,button){
+ if(locked)return;
+ locked=true;
+ let q=questions[index];
+ let buttons=document.querySelectorAll(".answer");
+ buttons.forEach((b,i)=>{
+  b.disabled=true;
+  if(i===q[2])b.classList.add("correct");
+ });
+ if(choice===q[2]){
+  points++;
+  document.getElementById("feedback").textContent="إجابة صحيحة! أحسنت 🎉";
+ }else{
+  button.classList.add("wrong");
+  document.getElementById("feedback").textContent="إجابة غير صحيحة. حاول مرة أخرى!";
+ }
+ document.getElementById("progress").textContent=
+ "السؤال "+(index+1)+" من "+questions.length+" | النقاط: "+points;
+ document.getElementById("next").textContent=
+ index===questions.length-1?"عرض النتيجة":"السؤال التالي ←";
+ document.getElementById("next").classList.remove("hidden");
+}
+
+function nextQuestion(){
+ index++;
+ if(index<questions.length)showQuestion();
+ else{
+  document.getElementById("quiz").classList.add("hidden");
+  document.getElementById("result").classList.remove("hidden");
+  document.getElementById("score").textContent=points+" / "+questions.length;
+  document.getElementById("message").textContent=
+  points===questions.length?"ممتاز! علامة كاملة 🏆":"استمر بالتعلم والتحدي!";
+ }
+}
+
+function goHome(){
+ document.getElementById("quiz").classList.add("hidden");
+ document.getElementById("result").classList.add("hidden");
+ document.getElementById("home").classList.remove("hidden");
+}
+</script>
+</body>
+</html>
