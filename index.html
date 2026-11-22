@@ -3,490 +3,505 @@
 <html lang="ar" dir="rtl">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="theme-color" content="#101b35">
-<title>QUIZNEX | Think. Play. Discover.</title>
+<title>QUIZNEX 3.0 | Think. Play. Discover.</title>
 <style>
-:root{
- --bg:#f3f6fc;--surface:#fff;--surface2:#eaf0fa;
- --text:#17233d;--muted:#71809a;--primary:#3868e8;
- --cyan:#20b9b3;--purple:#8662e8;--gold:#e9a936;
- --border:#e2e8f2;--shadow:0 8px 28px #263b6410;
-}
-body.dark{
- --bg:#0c1426;--surface:#15213a;--surface2:#1d2c49;
- --text:#f0f4ff;--muted:#a2b0ca;--primary:#7196ff;
- --cyan:#43d3ca;--purple:#a88aff;--gold:#f4c15e;
- --border:#2b3b59;--shadow:0 8px 28px #0003;
-}
+:root{--bg:#f3f6fc;--surface:#fff;--surface2:#eaf0fa;--text:#17233d;--muted:#71809a;--primary:#3868e8;--cyan:#20b9b3;--purple:#8662e8;--gold:#e9a936;--border:#e2e8f2;--shadow:0 8px 28px #263b6410}
+body.dark{--bg:#0b1222;--surface:#141f35;--surface2:#1c2b47;--text:#edf3ff;--muted:#9aabc7;--border:#293957;--shadow:0 8px 28px #0003}
 *{box-sizing:border-box}
-body{margin:0;background:var(--bg);color:var(--text);
- font-family:Arial,"Segoe UI",sans-serif;transition:.2s}
-button,input{font:inherit}
+body{margin:0;background:var(--bg);color:var(--text);font-family:Arial,Tahoma,sans-serif;transition:.2s}
+button,input,select{font:inherit}
 button{cursor:pointer}
-.topbar{height:70px;background:var(--surface);border-bottom:1px solid var(--border);
- display:flex;align-items:center;justify-content:space-between;padding:0 5%;
- position:sticky;top:0;z-index:10}
-.logo{font-size:24px;font-weight:900;letter-spacing:1px}
-.logo span{color:var(--primary)}
-.top-actions{display:flex;align-items:center;gap:10px}
-.small-btn{border:1px solid var(--border);background:var(--surface2);
- color:var(--text);padding:9px 12px;border-radius:12px;font-weight:bold}
-.layout{display:flex;max-width:1450px;margin:auto;min-height:calc(100vh - 70px)}
-.sidebar{width:230px;padding:24px 15px;border-left:1px solid var(--border)}
-body[dir="ltr"] .sidebar{border-left:0;border-right:1px solid var(--border)}
-.nav-label{font-size:11px;color:var(--muted);padding:12px;font-weight:bold}
-.nav-btn{width:100%;display:flex;align-items:center;gap:12px;
- border:0;background:transparent;color:var(--muted);padding:13px;
- border-radius:12px;text-align:inherit;margin:3px 0;font-weight:bold}
-.nav-btn.active,.nav-btn:hover{background:var(--surface2);color:var(--primary)}
-.nav-icon{font-size:19px;width:25px;text-align:center}
-.main{flex:1;min-width:0;padding:28px 30px 100px}
-.welcome{background:linear-gradient(115deg,#14294e,#2456a4 65%,#277d9c);
- color:white;border-radius:23px;padding:30px;position:relative;overflow:hidden;
- box-shadow:var(--shadow)}
-.welcome:after{content:"✦";position:absolute;font-size:170px;opacity:.09;
- right:65%;top:-55px}
-.welcome h1{font-size:30px;margin:0 0 10px}
-.welcome p{color:#d8e6ff;margin:0;line-height:1.8}
-.welcome .cta{margin-top:20px;background:white;color:#214b91;border:0;
- padding:12px 19px;border-radius:12px;font-weight:bold}
-.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin:22px 0}
-.stat{background:var(--surface);border:1px solid var(--border);
- padding:17px;border-radius:17px;box-shadow:var(--shadow)}
-.stat .symbol{font-size:22px}
-.stat strong{display:block;font-size:23px;margin:9px 0 4px}
-.stat small{color:var(--muted)}
-.section-head{display:flex;align-items:center;justify-content:space-between;
- gap:10px;margin:30px 0 15px}
-.section-head h2{font-size:21px;margin:0}
-.section-head button{border:0;background:none;color:var(--primary);font-weight:bold}
-.cards{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}
-.card{background:var(--surface);border:1px solid var(--border);
- border-radius:17px;overflow:hidden;box-shadow:var(--shadow);min-width:0}
-.card img{width:100%;height:145px;object-fit:cover;display:block;background:var(--surface2)}
-.card-body{padding:15px}
-.card h3{margin:0 0 8px;font-size:17px}
-.card p{color:var(--muted);font-size:13px;line-height:1.7;margin:0 0 13px}
-.tag{font-size:11px;background:var(--surface2);color:var(--primary);
- border-radius:20px;padding:6px 10px;display:inline-block;margin-bottom:10px}
-.primary-btn{background:var(--primary);color:white;border:0;border-radius:11px;
- padding:10px 14px;font-weight:bold}
-.secondary-btn{background:var(--surface2);color:var(--text);
- border:1px solid var(--border);border-radius:11px;padding:10px 14px}
-.panel{background:var(--surface);border:1px solid var(--border);
- border-radius:18px;padding:20px;box-shadow:var(--shadow)}
-.page{display:none}.page.active{display:block}
-.search{width:100%;padding:14px 16px;border-radius:13px;
- border:1px solid var(--border);background:var(--surface);color:var(--text);margin-bottom:15px}
-.profile-top{display:flex;align-items:center;gap:18px;margin-bottom:20px}
-.avatar{width:75px;height:75px;border-radius:22px;background:linear-gradient(135deg,var(--primary),var(--purple));
- display:grid;place-items:center;color:white;font-size:32px}
-.progress{height:10px;background:var(--surface2);border-radius:20px;overflow:hidden}
+header{background:var(--surface);border-bottom:1px solid var(--border);position:sticky;top:0;z-index:10}
+.top{max-width:1200px;margin:auto;padding:13px 18px;display:flex;align-items:center;justify-content:space-between;gap:12px}
+.logo{font-size:25px;font-weight:900;letter-spacing:1px;color:var(--primary)}
+.logo span{color:var(--cyan)}
+.actions{display:flex;gap:8px;align-items:center}
+.btn{border:0;border-radius:11px;padding:10px 14px;background:var(--primary);color:white;font-weight:bold}
+.btn.alt{background:var(--surface2);color:var(--text);border:1px solid var(--border)}
+.btn.small{padding:8px 10px;font-size:13px}
+main{max-width:1200px;margin:22px auto;padding:0 16px 90px}
+.hero{padding:28px;border-radius:22px;background:linear-gradient(125deg,#14254b,#315ed1 65%,#20b9b3);color:white;position:relative;overflow:hidden}
+.hero h1{font-size:clamp(27px,5vw,44px);margin:0 0 10px}
+.hero p{color:#e2eaff;max-width:650px;line-height:1.8}
+.hero .tag{display:inline-block;padding:7px 11px;border-radius:30px;background:#ffffff20;font-size:12px}
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin:18px 0}
+.stat,.panel,.card,.article-card,.question-box{background:var(--surface);border:1px solid var(--border);border-radius:16px;box-shadow:var(--shadow)}
+.stat{padding:16px}.stat strong{display:block;font-size:25px;color:var(--primary);margin-bottom:5px}.stat span{color:var(--muted);font-size:13px}
+.section-head{display:flex;align-items:center;justify-content:space-between;gap:10px;margin:28px 0 14px}
+.section-head h2{margin:0;font-size:21px}
+.muted{color:var(--muted)}
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+.card{overflow:hidden;cursor:pointer;transition:.2s}
+.card:hover{transform:translateY(-3px);border-color:var(--primary)}
+.card-img{height:125px;background:linear-gradient(135deg,#1d3769,#20b9b3);display:flex;align-items:center;justify-content:center;font-size:48px}
+.card-content{padding:15px}
+.card h3{margin:0 0 7px}
+.card p{margin:0;color:var(--muted);font-size:13px;line-height:1.7}
+.pill{display:inline-block;background:var(--surface2);color:var(--primary);border-radius:30px;padding:5px 9px;font-size:11px;margin-top:10px}
+.toolbar{display:flex;gap:9px;flex-wrap:wrap;margin:15px 0}
+input,select{background:var(--surface);border:1px solid var(--border);color:var(--text);padding:11px 13px;border-radius:11px;min-width:0}
+input{flex:1;min-width:180px}
+.article-card{padding:17px;margin-bottom:12px}
+.article-card h3{margin:0 0 8px}
+.article-card p{line-height:1.9;color:var(--muted);margin:0 0 12px}
+.article-meta{display:flex;align-items:center;justify-content:space-between;gap:8px;flex-wrap:wrap}
+.hidden{display:none!important}
+.panel{padding:20px}
+.tabs{display:flex;gap:8px;flex-wrap:wrap;margin:18px 0}
+.tab{border:1px solid var(--border);background:var(--surface);color:var(--text);border-radius:10px;padding:10px 13px}
+.tab.active{background:var(--primary);color:white;border-color:var(--primary)}
+.question-box{padding:20px;margin:14px 0}
+.question-box h3{line-height:1.7}
+.answers{display:grid;gap:9px;margin-top:16px}
+.answer{padding:13px;border:1px solid var(--border);border-radius:11px;background:var(--surface2);color:var(--text);text-align:start}
+.answer:hover{border-color:var(--primary)}
+.answer.correct{background:#d9f8e7;border-color:#20a45c;color:#126b39}
+.answer.wrong{background:#ffe2e2;border-color:#d44;color:#9b2525}
+body.dark .answer.correct{background:#164b35;color:#c4ffdc}
+body.dark .answer.wrong{background:#542b35;color:#ffd5dc}
+.progress{height:9px;background:var(--surface2);border-radius:20px;overflow:hidden;margin:12px 0}
 .progress div{height:100%;background:linear-gradient(90deg,var(--primary),var(--cyan));width:0}
-.quiz-option{display:block;width:100%;text-align:inherit;margin:10px 0;
- padding:14px;border-radius:12px;border:1px solid var(--border);
- background:var(--surface2);color:var(--text)}
-.quiz-option:hover{border-color:var(--primary)}
-.quiz-option.correct{background:#d7f5e9;color:#126b49;border-color:#30b980}
-.quiz-option.wrong{background:#ffe2e2;color:#9b3030;border-color:#e77}
-.bottom-nav{display:none}
-.empty{padding:35px;text-align:center;color:var(--muted)}
-footer{text-align:center;color:var(--muted);padding:35px 10px;font-size:12px}
-@media(max-width:850px){
- .sidebar{width:190px}.main{padding:22px 18px 90px}
- .cards{grid-template-columns:repeat(2,minmax(0,1fr))}
- .stats{grid-template-columns:repeat(2,1fr)}
-}
-@media(max-width:600px){
- .topbar{height:62px;padding:0 15px}.logo{font-size:21px}
- .sidebar{display:none}.main{padding:17px 13px 95px}
- .welcome{padding:23px 19px}.welcome h1{font-size:25px}
- .cards{grid-template-columns:1fr 1fr;gap:10px}
- .card img{height:105px}.card-body{padding:11px}
- .card h3{font-size:14px}.card p{font-size:12px}
- .stats{gap:9px}.stat{padding:13px}
- .stat strong{font-size:20px}
- .bottom-nav{display:flex;position:fixed;bottom:0;left:0;right:0;
- background:var(--surface);border-top:1px solid var(--border);
- justify-content:space-around;padding:9px 2px calc(9px + env(safe-area-inset-bottom));
- z-index:20}
- .bottom-nav button{background:none;border:0;color:var(--muted);
- font-size:10px;display:flex;flex-direction:column;gap:4px;align-items:center}
- .bottom-nav button.active{color:var(--primary);font-weight:bold}
- .bottom-nav span{font-size:19px}
- .top-actions{gap:5px}.small-btn{padding:8px}
-}
+.notice{padding:13px;background:var(--surface2);border-radius:12px;color:var(--muted);line-height:1.7}
+footer{text-align:center;color:var(--muted);padding:30px 10px;font-size:12px}
+.mobile-nav{display:none}
+.back{margin-bottom:15px}
+.badge{display:inline-block;border:1px solid var(--border);padding:8px 11px;border-radius:10px;margin:4px;font-size:13px}
+.article-body{line-height:2;font-size:16px;white-space:pre-line}
+@media(max-width:750px){.grid{grid-template-columns:repeat(2,1fr)}.stats{grid-template-columns:repeat(2,1fr)}.hero{padding:22px}.top{padding:11px}.logo{font-size:21px}}
+@media(max-width:480px){.grid{grid-template-columns:1fr}.actions .btn{padding:8px 9px;font-size:12px}.section-head h2{font-size:18px}main{padding-left:12px;padding-right:12px}}
 </style>
 </head>
 <body>
-<header class="topbar">
- <div class="logo">QUIZ<span>NEX</span></div>
- <div class="top-actions">
-  <button class="small-btn" id="langBtn">🇬🇧 EN</button>
-  <button class="small-btn" id="themeBtn">🌙</button>
+<header>
+ <div class="top">
+  <div class="logo">QUIZ<span>NEX</span></div>
+  <div class="actions">
+   <button class="btn alt small" onclick="toggleLang()" id="langBtn">English</button>
+   <button class="btn alt small" onclick="toggleTheme()" id="themeBtn">🌙</button>
+  </div>
  </div>
 </header>
-
-<div class="layout">
-<aside class="sidebar">
- <div class="nav-label" data-t="menu">القائمة الرئيسية</div>
- <button class="nav-btn active" data-page="home"><span class="nav-icon">⌂</span><span data-t="home">الرئيسية</span></button>
- <button class="nav-btn" data-page="explore"><span class="nav-icon">📚</span><span data-t="explore">الموسوعات</span></button>
- <button class="nav-btn" data-page="quizzes"><span class="nav-icon">🧠</span><span data-t="quizzes">الاختبارات</span></button>
- <button class="nav-btn" data-page="ranking"><span class="nav-icon">🏆</span><span data-t="ranking">الترتيب</span></button>
- <div class="nav-label" data-t="account">حسابي</div>
- <button class="nav-btn" data-page="profile"><span class="nav-icon">👤</span><span data-t="profile">ملفي الشخصي</span></button>
-</aside>
-
-<main class="main">
-<section class="page active" id="home">
- <div class="welcome">
-  <h1 data-t="welcome">أهلاً بك في عالم المعرفة!</h1>
-  <p data-t="welcomeText">اكتشف معلومات جديدة، اختبر ذكاءك، واصنع إنجازاتك.</p>
-  <button class="cta" onclick="showPage('explore')" data-t="discover">ابدأ الاستكشاف ←</button>
- </div>
- <div class="stats">
-  <div class="stat"><span class="symbol">⚡</span><strong id="homeXP">0</strong><small data-t="points">نقاط الخبرة XP</small></div>
-  <div class="stat"><span class="symbol">🧠</span><strong id="homeQuizzes">0</strong><small data-t="completed">اختبارات مكتملة</small></div>
-  <div class="stat"><span class="symbol">🏅</span><strong id="homeLevel">1</strong><small data-t="level">المستوى</small></div>
-  <div class="stat"><span class="symbol">⭐</span><strong id="homeFav">0</strong><small data-t="favorites">المفضلة</small></div>
- </div>
- <div class="section-head"><h2 data-t="featured">استكشف المجالات</h2><button onclick="showPage('explore')" data-t="viewAll">عرض الكل ←</button></div>
- <div class="cards" id="homeCategories"></div>
- <div class="section-head"><h2 data-t="challenge">تحدي المعرفة</h2></div>
- <div class="panel">
-  <h3 data-t="dailyTitle">هل أنت مستعد لتحدي اليوم؟</h3>
-  <p data-t="dailyText">اختبر معلوماتك واكسب نقاط خبرة جديدة.</p>
-  <button class="primary-btn" onclick="showPage('quizzes')" data-t="startQuiz">ابدأ الاختبار</button>
- </div>
-</section>
-
-<section class="page" id="explore">
- <div class="section-head"><h2 data-t="encyclopedias">الموسوعات المعرفية</h2></div>
- <input class="search" id="searchInput" placeholder="ابحث عن مجال..." data-placeholder="search">
- <div class="cards" id="allCategories"></div>
-</section>
-
-<section class="page" id="quizzes">
- <div class="section-head"><h2 data-t="quizCenter">مركز الاختبارات</h2></div>
- <div id="quizStart" class="panel">
-  <h3 data-t="testYourself">اختبر معلوماتك!</h3>
-  <p data-t="quizDescription">ابدأ اختبار المعلومات العامة. كل إجابة صحيحة تمنحك نقاط خبرة.</p>
-  <button class="primary-btn" onclick="startQuiz()" data-t="startNow">ابدأ الآن</button>
- </div>
- <div id="quizArea" class="panel" style="display:none">
-  <div style="display:flex;justify-content:space-between;gap:10px">
-   <span id="questionCount"></span><span id="quizScore"></span>
+<main>
+ <section id="home">
+  <div class="hero">
+   <span class="tag">THINK. PLAY. DISCOVER.</span>
+   <h1 data-ar="اكتشف المعرفة. اختبر ذكاءك." data-en="Explore knowledge. Challenge yourself.">اكتشف المعرفة. اختبر ذكاءك.</h1>
+   <p data-ar="منصة تجمع الموسوعات والمقالات والاختبارات في مكان واحد. تعلّم شيئاً جديداً كل يوم، واجمع النقاط وطوّر مستواك." data-en="A platform for encyclopedias, articles and quizzes. Learn something new every day, earn XP and level up.">منصة تجمع الموسوعات والمقالات والاختبارات في مكان واحد. تعلّم شيئاً جديداً كل يوم، واجمع النقاط وطوّر مستواك.</p>
+   <button class="btn" onclick="showPage('encyclopedias')" data-ar="ابدأ الاستكشاف ←" data-en="Start exploring →">ابدأ الاستكشاف ←</button>
   </div>
-  <div class="progress" style="margin:15px 0"><div id="quizProgress"></div></div>
-  <h3 id="questionText"></h3>
-  <div id="options"></div>
-  <p id="feedback" aria-live="polite"></p>
-  <button class="primary-btn" id="nextQuestion" style="display:none" onclick="nextQ()" data-t="next">التالي</button>
- </div>
- <div id="quizResult" class="panel" style="display:none"></div>
-</section>
-
-<section class="page" id="ranking">
- <div class="section-head"><h2 data-t="hall">لوحة الشرف</h2></div>
- <div class="panel">
-  <h3 data-t="localRanking">ترتيبك على هذا الجهاز</h3>
-  <p data-t="rankingNote">هذا ترتيب محلي تجريبي. الترتيب العالمي يحتاج حسابات وخادماً في المستقبل.</p>
-  <div style="font-size:45px;text-align:center;margin:15px">🏆</div>
-  <div style="display:flex;justify-content:space-between;padding:15px;background:var(--surface2);border-radius:12px">
-   <strong data-t="you">أنت — زائر</strong><strong id="rankXP">0 XP</strong>
-  </div>
- </div>
- <div class="section-head"><h2 data-t="achievements">الإنجازات</h2></div>
- <div class="cards" id="badges"></div>
-</section>
-
-<section class="page" id="profile">
- <div class="section-head"><h2 data-t="myProfile">ملفي الشخصي</h2></div>
- <div class="panel">
-  <div class="profile-top">
-   <div class="avatar">👤</div>
-   <div><h2 id="guestName">Guest</h2><p style="color:var(--muted);margin:5px 0" data-t="guestMode">وضع الزائر • الحفظ على هذا الجهاز</p></div>
-  </div>
-  <label data-t="changeName">اسمك في QUIZNEX</label>
-  <input class="search" style="margin-top:10px" id="nameInput" maxlength="20" placeholder="اكتب اسمك">
-  <button class="primary-btn" onclick="saveName()" data-t="saveName">حفظ الاسم</button>
-  <div class="section-head"><h3 data-t="yourProgress">تقدمك</h3></div>
-  <p><span data-t="level">المستوى</span>: <strong id="profileLevel">1</strong></p>
-  <div class="progress"><div id="levelProgress"></div></div>
-  <p style="color:var(--muted);font-size:12px" id="progressText"></p>
   <div class="stats">
-   <div class="stat"><strong id="profileXP">0</strong><small>XP</small></div>
-   <div class="stat"><strong id="profileQuizzes">0</strong><small data-t="completed">اختبارات مكتملة</small></div>
+   <div class="stat"><strong id="xp">0</strong><span data-ar="نقاط الخبرة XP" data-en="Experience points XP">نقاط الخبرة XP</span></div>
+   <div class="stat"><strong id="level">1</strong><span data-ar="مستواك الحالي" data-en="Your level">مستواك الحالي</span></div>
+   <div class="stat"><strong id="done">0</strong><span data-ar="اختبارات مكتملة" data-en="Completed quizzes">اختبارات مكتملة</span></div>
+   <div class="stat"><strong id="saved">0</strong><span data-ar="مقالات محفوظة" data-en="Saved articles">مقالات محفوظة</span></div>
   </div>
-  <button class="secondary-btn" onclick="resetProgress()" data-t="reset">إعادة ضبط التقدم</button>
- </div>
-</section>
-<footer>QUIZNEX © 2026 — Think. Play. Discover.</footer>
+  <div class="section-head"><h2 data-ar="استكشف QUIZNEX" data-en="Explore QUIZNEX">استكشف QUIZNEX</h2></div>
+  <div class="grid">
+   <div class="card" onclick="showPage('encyclopedias')"><div class="card-img">📚</div><div class="card-content"><h3 data-ar="الموسوعات" data-en="Encyclopedias">الموسوعات</h3><p data-ar="اكتشف مجالات المعرفة واقرأ المقالات." data-en="Explore fields of knowledge and read articles.">اكتشف مجالات المعرفة واقرأ المقالات.</p></div></div>
+   <div class="card" onclick="showPage('quizzes')"><div class="card-img">🧠</div><div class="card-content"><h3 data-ar="الاختبارات" data-en="Quizzes">الاختبارات</h3><p data-ar="اختبر معلوماتك في تخصصات مختلفة." data-en="Test your knowledge across many subjects.">اختبر معلوماتك في تخصصات مختلفة.</p></div></div>
+   <div class="card" onclick="showPage('profile')"><div class="card-img">🏆</div><div class="card-content"><h3 data-ar="ملفي وإنجازاتي" data-en="My profile">ملفي وإنجازاتي</h3><p data-ar="تابع نقاطك ومستواك وإنجازاتك." data-en="Track your XP, level and achievements.">تابع نقاطك ومستواك وإنجازاتك.</p></div></div>
+  </div>
+ </section>
+
+ <section id="encyclopedias" class="hidden">
+  <button class="btn alt back" onclick="showPage('home')" data-ar="← الرئيسية" data-en="← Home">← الرئيسية</button>
+  <div class="section-head"><h2 data-ar="الموسوعات المعرفية" data-en="Knowledge encyclopedias">الموسوعات المعرفية</h2><span class="muted" id="categoryCount"></span></div>
+  <div class="toolbar"><input id="categorySearch" placeholder="ابحث عن موسوعة..." oninput="renderCategories()"></div>
+  <div class="grid" id="categoryGrid"></div>
+ </section>
+
+ <section id="articles" class="hidden">
+  <button class="btn alt back" onclick="showPage('encyclopedias')" data-ar="← الموسوعات" data-en="← Encyclopedias">← الموسوعات</button>
+  <div class="section-head"><h2 id="articleHeading"></h2></div>
+  <div class="toolbar"><input id="articleSearch" placeholder="ابحث في المقالات..." oninput="renderArticles()"></div>
+  <div id="articleList"></div>
+ </section>
+
+ <section id="reader" class="hidden">
+  <button class="btn alt back" onclick="showPage('articles')" data-ar="← رجوع للمقالات" data-en="← Back to articles">← رجوع للمقالات</button>
+  <div class="panel">
+   <span class="pill" id="readerCategory"></span>
+   <h1 id="readerTitle"></h1>
+   <p class="muted" id="readerIntro"></p>
+   <div class="article-body" id="readerBody"></div>
+   <div class="toolbar"><button class="btn" id="favoriteBtn" onclick="toggleFavorite()" data-ar="☆ حفظ المقال" data-en="☆ Save article">☆ حفظ المقال</button></div>
+  </div>
+ </section>
+
+ <section id="quizzes" class="hidden">
+  <button class="btn alt back" onclick="showPage('home')" data-ar="← الرئيسية" data-en="← Home">← الرئيسية</button>
+  <div class="section-head"><h2 data-ar="مركز الاختبارات" data-en="Quiz center">مركز الاختبارات</h2></div>
+  <p class="muted" data-ar="اختر المجال والمستوى، ثم ابدأ التحدي. الأسئلة تتغير حسب التخصص." data-en="Choose a subject and difficulty, then start. Questions are specific to each subject.">اختر المجال والمستوى، ثم ابدأ التحدي. الأسئلة تتغير حسب التخصص.</p>
+  <div class="panel">
+   <label data-ar="التخصص" data-en="Subject">التخصص</label>
+   <select id="quizCategory"></select>
+   <div class="toolbar">
+    <select id="difficulty">
+     <option value="all">كل المستويات / All levels</option>
+     <option value="easy">سهل / Easy</option>
+     <option value="medium">متوسط / Medium</option>
+     <option value="hard">صعب / Hard</option>
+    </select>
+    <select id="questionCount"><option value="5">5 أسئلة</option><option value="10" selected>10 أسئلة</option><option value="15">15 سؤالاً</option></select>
+   </div>
+   <button class="btn" onclick="startQuiz()" data-ar="ابدأ الاختبار" data-en="Start quiz">ابدأ الاختبار</button>
+  </div>
+  <div id="quizArea"></div>
+ </section>
+
+ <section id="profile" class="hidden">
+  <button class="btn alt back" onclick="showPage('home')" data-ar="← الرئيسية" data-en="← Home">← الرئيسية</button>
+  <div class="section-head"><h2 data-ar="ملفي الشخصي" data-en="My profile">ملفي الشخصي</h2></div>
+  <div class="panel">
+   <h2 id="profileName">مستكشف QUIZNEX</h2>
+   <p class="muted" data-ar="تقدمك محفوظ على هذا الجهاز والمتصفح." data-en="Your progress is saved on this device and browser.">تقدمك محفوظ على هذا الجهاز والمتصفح.</p>
+   <div class="stats">
+    <div class="stat"><strong id="profileXP">0</strong><span>XP</span></div>
+    <div class="stat"><strong id="profileLevel">1</strong><span data-ar="المستوى" data-en="Level">المستوى</span></div>
+    <div class="stat"><strong id="profileDone">0</strong><span data-ar="اختبارات" data-en="Quizzes">اختبارات</span></div>
+    <div class="stat"><strong id="profileAccuracy">0%</strong><span data-ar="نسبة الإجابات الصحيحة" data-en="Accuracy">نسبة الإجابات الصحيحة</span></div>
+   </div>
+   <h3 data-ar="الإنجازات" data-en="Achievements">الإنجازات</h3>
+   <div id="achievements"></div>
+   <h3 data-ar="آخر النتائج" data-en="Recent results">آخر النتائج</h3>
+   <div id="history"></div>
+   <button class="btn alt" onclick="changeName()" data-ar="تغيير الاسم" data-en="Change name">تغيير الاسم</button>
+  </div>
+ </section>
+ <footer>QUIZNEX 3.0 · THINK. PLAY. DISCOVER.</footer>
 </main>
-</div>
-
-<nav class="bottom-nav">
- <button class="active" data-page="home"><span>⌂</span><b data-t="home">الرئيسية</b></button>
- <button data-page="explore"><span>📚</span><b data-t="explore">الموسوعات</b></button>
- <button data-page="quizzes"><span>🧠</span><b data-t="quizzes">الاختبارات</b></button>
- <button data-page="ranking"><span>🏆</span><b data-t="ranking">الترتيب</b></button>
- <button data-page="profile"><span>👤</span><b data-t="profile">ملفي</b></button>
-</nav>
-
 <script>
-const translations={
- ar:{
- menu:"القائمة الرئيسية",home:"الرئيسية",explore:"الموسوعات",quizzes:"الاختبارات",
- ranking:"الترتيب",profile:"ملفي الشخصي",account:"حسابي",
- welcome:"أهلاً بك في عالم المعرفة!",welcomeText:"اكتشف معلومات جديدة، اختبر ذكاءك، واصنع إنجازاتك.",
- discover:"ابدأ الاستكشاف ←",points:"نقاط الخبرة XP",completed:"اختبارات مكتملة",
- level:"المستوى",favorites:"المفضلة",featured:"استكشف المجالات",viewAll:"عرض الكل ←",
- challenge:"تحدي المعرفة",dailyTitle:"هل أنت مستعد لتحدي اليوم؟",
- dailyText:"اختبر معلوماتك واكسب نقاط خبرة جديدة.",startQuiz:"ابدأ الاختبار",
- encyclopedias:"الموسوعات المعرفية",search:"ابحث عن مجال...",
- quizCenter:"مركز الاختبارات",testYourself:"اختبر معلوماتك!",
- quizDescription:"ابدأ اختبار المعلومات العامة. كل إجابة صحيحة تمنحك نقاط خبرة.",
- startNow:"ابدأ الآن",next:"التالي",hall:"لوحة الشرف",
- localRanking:"ترتيبك على هذا الجهاز",
- rankingNote:"هذا ترتيب محلي تجريبي. الترتيب العالمي يحتاج حسابات وخادماً في المستقبل.",
- you:"أنت — زائر",achievements:"الإنجازات",myProfile:"ملفي الشخصي",
- guestMode:"وضع الزائر • الحفظ على هذا الجهاز",changeName:"اسمك في QUIZNEX",
- saveName:"حفظ الاسم",yourProgress:"تقدمك",reset:"إعادة ضبط التقدم",
- correct:"إجابة صحيحة! أحسنت.",wrong:"إجابة غير صحيحة. حاول مرة أخرى في الاختبار القادم.",
- result:"انتهى الاختبار!",yourScore:"نتيجتك",earned:"نقاط الخبرة المكتسبة",
- tryAgain:"حاول مجدداً",noResults:"لا توجد مجالات مطابقة.",
- saved:"تم حفظ اسمك!",resetConfirm:"هل أنت متأكد من إعادة ضبط تقدمك؟",
- badge1:"بداية الرحلة",badge2:"مستكشف المعرفة",badge3:"عقل متقد",
- catFootball:"كرة القدم",catSpace:"الفضاء",catScience:"العلوم",
- catHistory:"التاريخ",catGeography:"الجغرافيا",catTech:"التكنولوجيا",
- descFootball:"اكتشف عالم اللاعبين والأندية والبطولات.",descSpace:"رحلة بين الكواكب والنجوم والمجرات.",
- descScience:"اكتشف أسرار الطبيعة والعلوم.",descHistory:"تعرف على الحضارات والأحداث التاريخية.",
- descGeography:"اكتشف الدول والقارات والعجائب الطبيعية.",
- descTech:"تعرف على التقنية والابتكارات الحديثة.",
- articles:"مقالات قريباً",startCategory:"استكشف"
- },
- en:{
- menu:"MAIN MENU",home:"Home",explore:"Encyclopedias",quizzes:"Quizzes",
- ranking:"Leaderboard",profile:"My Profile",account:"ACCOUNT",
- welcome:"Welcome to the world of knowledge!",welcomeText:"Discover new facts, test your mind and build your achievements.",
- discover:"Start exploring →",points:"Experience points XP",completed:"Completed quizzes",
- level:"Level",favorites:"Favorites",featured:"Explore categories",viewAll:"View all →",
- challenge:"Knowledge challenge",dailyTitle:"Ready for today's challenge?",
- dailyText:"Test your knowledge and earn new experience points.",startQuiz:"Start quiz",
- encyclopedias:"Knowledge encyclopedias",search:"Search categories...",
- quizCenter:"Quiz center",testYourself:"Test your knowledge!",
- quizDescription:"Start a general knowledge quiz. Every correct answer earns experience points.",
- startNow:"Start now",next:"Next",hall:"Hall of Fame",
- localRanking:"Your ranking on this device",
- rankingNote:"This is a local demo ranking. A global leaderboard requires accounts and a server in the future.",
- you:"You — Guest",achievements:"Achievements",myProfile:"My Profile",
- guestMode:"Guest mode • Saved on this device",changeName:"Your QUIZNEX name",
- saveName:"Save name",yourProgress:"Your progress",reset:"Reset progress",
- correct:"Correct answer! Well done.",wrong:"Incorrect answer. Try again next time.",
- result:"Quiz completed!",yourScore:"Your score",earned:"XP earned",
- tryAgain:"Try again",noResults:"No matching categories.",
- saved:"Your name has been saved!",resetConfirm:"Are you sure you want to reset your progress?",
- badge1:"First steps",badge2:"Knowledge explorer",badge3:"Brilliant mind",
- catFootball:"Football",catSpace:"Space",catScience:"Science",
- catHistory:"History",catGeography:"Geography",catTech:"Technology",
- descFootball:"Discover players, clubs and competitions.",descSpace:"Explore planets, stars and galaxies.",
- descScience:"Discover the secrets of nature and science.",descHistory:"Explore civilizations and historical events.",
- descGeography:"Discover countries, continents and natural wonders.",
- descTech:"Explore technology and modern innovations.",
- articles:"Articles coming soon",startCategory:"Explore"
- }
-};
-
 const categories=[
- {id:"Football",icon:"⚽",img:"https://images.unsplash.com/photo-1522778119026-d647f0596c20?w=700",key:"catFootball",desc:"descFootball"},
- {id:"Space",icon:"🌌",img:"https://images.unsplash.com/photo-1446776811953-b23d57bd21aa?w=700",key:"catSpace",desc:"descSpace"},
- {id:"Science",icon:"🔬",img:"https://images.unsplash.com/photo-1532094349884-543bc11b234d?w=700",key:"catScience",desc:"descScience"},
- {id:"History",icon:"🏛️",img:"https://images.unsplash.com/photo-1566127444979-b3d2b654e3d7?w=700",key:"catHistory",desc:"descHistory"},
- {id:"Geography",icon:"🌍",img:"https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=700",key:"catGeography",desc:"descGeography"},
- {id:"Tech",icon:"💻",img:"https://images.unsplash.com/photo-1518770660439-4636190af475?w=700",key:"catTech",desc:"descTech"}
+{id:"football",ar:"كرة القدم",en:"Football",icon:"⚽",desc:"اللاعبون والأندية والمنتخبات والبطولات وتاريخ اللعبة.",articles:[
+["تاريخ كرة القدم","تطورت كرة القدم الحديثة في إنجلترا خلال القرن التاسع عشر، ثم انتشرت عبر المدارس والنوادي والاتحادات. وفي عام 1863 تأسس الاتحاد الإنجليزي لكرة القدم ووُضعت قواعد ساعدت على توحيد اللعبة."],
+["كأس العالم","ينظم الاتحاد الدولي لكرة القدم بطولة كأس العالم للمنتخبات كل أربع سنوات. انطلقت النسخة الأولى عام 1930 في الأوروغواي، وأصبحت البطولة من أكبر الأحداث الرياضية متابعة في العالم."],
+["دوري أبطال أوروبا","بطولة قارية للأندية الأوروبية ينظمها الاتحاد الأوروبي لكرة القدم. تجمع أندية من دوريات مختلفة، وتطورت صيغتها عبر العقود لتصبح منافسة كبرى على مستوى الأندية."],
+["مراكز اللاعبين","تتوزع أدوار لاعبي كرة القدم عادة بين حراسة المرمى والدفاع والوسط والهجوم. وتختلف مهام كل مركز بحسب خطة المدرب وطريقة بناء اللعب والضغط والتحول."],
+["قوانين التسلل","يُحتسب التسلل عندما يكون اللاعب في موقف تسلل لحظة لعب الكرة إليه من زميله، ثم يشارك في اللعب الفعّال. مجرد الوقوف في موقف تسلل لا يعد مخالفة وحده."],
+["الكرة الذهبية","جائزة فردية سنوية تُمنح لأحد أبرز لاعبي كرة القدم. تعتمد عملية الاختيار على معايير رياضية وتصويت صحفي، وقد تغيرت تفاصيلها وشروطها عبر تاريخ الجائزة."],
+["خطط اللعب","تصف الخطط توزيع اللاعبين داخل الملعب مثل 4-3-3 و4-2-3-1. الأرقام تشير عادة إلى المدافعين ولاعبي الوسط والمهاجمين، ولا تعني أن الفريق ثابت طوال المباراة."],
+["حراسة المرمى","حارس المرمى هو اللاعب الوحيد الذي يسمح له باستخدام يديه داخل منطقة جزائه وفق القوانين. تشمل مهامه التصدي والتوجيه وبناء الهجمة والتمركز والتواصل مع الدفاع."],
+["ركلات الترجيح","تُستخدم ركلات الترجيح في بعض البطولات لحسم المباراة بعد انتهاء الوقت المحدد بالتعادل. يتناوب الفريقان على التسديد وفق إجراءات يحددها قانون اللعبة."],
+["الاحتراف الرياضي","يشمل الاحتراف عقود اللاعبين والتدريب والتغذية والتأهيل والالتزام بقواعد الأندية والاتحادات. وأصبح الجانب البدني والتحليل الفني جزءاً مهماً من إعداد اللاعب الحديث."]]},
+{id:"space",ar:"الفضاء",en:"Space",icon:"🚀",desc:"الكواكب والنجوم والمجرات والرحلات الفضائية.",articles:[
+["النظام الشمسي","يتكون النظام الشمسي من الشمس وما يدور حولها من كواكب وأقمار وكويكبات ومذنبات وأجسام أخرى. تشكلت مكوناته قبل نحو 4.6 مليار سنة من سحابة من الغاز والغبار."],
+["الشمس","الشمس نجم يقع في مركز النظام الشمسي، وتنتج الطاقة عبر الاندماج النووي في نواتها. جاذبيتها تحفظ الكواكب في مداراتها، وضوؤها وحرارتها أساسيان للحياة على الأرض."],
+["كوكب المريخ","المريخ كوكب صخري يعرف بلونه الأحمر بسبب أكاسيد الحديد في تربته. تدرس المركبات الجوالة سطحه ومناخه وتاريخه الجيولوجي بحثاً عن أدلة على وجود ماء قديم."],
+["الثقوب السوداء","الثقب الأسود منطقة في الفضاء تكون جاذبيتها شديدة للغاية، بحيث لا يستطيع الضوء الإفلات من داخل أفق الحدث. يستدل العلماء عليها من تأثيرها في المادة والنجوم المحيطة."],
+["القمر","القمر هو التابع الطبيعي للأرض، وتؤثر جاذبيته في المد والجزر. تتغير أطواره الظاهرية خلال الشهر نتيجة تغير موضعه بالنسبة إلى الأرض والشمس."],
+["المجرات","المجرة تجمع هائل من النجوم والغاز والغبار والمادة المظلمة مرتبط بالجاذبية. تنتمي الشمس إلى مجرة درب التبانة التي تحتوي على أعداد هائلة من النجوم."],
+["محطة الفضاء الدولية","محطة الفضاء الدولية مختبر مداري تشارك في تشغيله وكالات فضاء متعددة. تتيح إجراء تجارب في بيئة الجاذبية الصغرى ومراقبة الأرض واختبار تقنيات الرحلات الطويلة."],
+["الكسوف والخسوف","يحدث كسوف الشمس عندما يقع القمر بين الأرض والشمس ويحجب جزءاً من ضوئها. أما خسوف القمر فيحدث عندما تقع الأرض بين الشمس والقمر فيدخل القمر ظل الأرض."],
+["النجوم","النجوم كرات ضخمة من البلازما تنتج الضوء والحرارة من تفاعلات الاندماج النووي. تختلف ألوانها ودرجات حرارتها وأحجامها وأعمارها، وتساعد دراسة ضوئها على فهم تركيبها."],
+["استكشاف المريخ","تستخدم وكالات الفضاء المدارات والمركبات الجوالة لدراسة سطح المريخ وغلافه الجوي. تساعد البيانات في فهم تاريخ الكوكب وتقييم إمكانات الاستكشاف البشري مستقبلاً."]]},
+{id:"science",ar:"العلوم",en:"Science",icon:"🔬",desc:"اكتشافات ومفاهيم علمية تفسر العالم من حولنا.",articles:[
+["المنهج العلمي","المنهج العلمي طريقة منظمة لدراسة الظواهر، تبدأ بالملاحظة وصياغة سؤال، ثم بناء فرضية واختبارها وجمع البيانات وتحليلها. وتُراجع النتائج من قبل باحثين آخرين."],
+["الذرة","الذرة وحدة أساسية للمادة تتكون من نواة تحتوي بروتونات ونيوترونات، وتحيط بها إلكترونات. يحدد عدد البروتونات نوع العنصر الكيميائي."],
+["الطاقة","الطاقة قدرة النظام على إحداث تغيير أو بذل شغل. تظهر بصور متعددة مثل الحركية والحرارية والكيميائية والكهربائية، ويمكن أن تتحول من شكل إلى آخر."],
+["الجاذبية","الجاذبية تفاعل يجذب الأجسام التي لها كتلة بعضها نحو بعض. تفسر سقوط الأشياء على الأرض وحركة القمر والكواكب، ووصفها آينشتاين أيضاً ضمن انحناء الزمكان."],
+["الضوء","الضوء إشعاع كهرومغناطيسي تستطيع العين البشرية رؤية جزء من طيفه. ينتقل في الفراغ بسرعة تقارب 300 ألف كيلومتر في الثانية، ويتفاعل مع المواد بالانعكاس والانكسار والامتصاص."],
+["الصوت","الصوت موجة ميكانيكية تنتقل عبر وسط مثل الهواء أو الماء أو المواد الصلبة. لا ينتقل الصوت في الفراغ، وتتحدد خصائصه بالتردد والسعة وطبيعة الوسط."],
+["الطاقة المتجددة","مصادر الطاقة المتجددة تتجدد طبيعياً، مثل الشمس والرياح والمياه والحرارة الجوفية. تساعد في تنويع مصادر الطاقة وتقليل الانبعاثات عند استخدامها بطريقة مدروسة."],
+["الضغط الجوي","الضغط الجوي ناتج عن وزن عمود الهواء فوق مساحة معينة. يتغير مع الارتفاع والطقس، وتستخدم أجهزة قياسه في التنبؤات الجوية ودراسة الغلاف الجوي."],
+["الاحتكاك","الاحتكاك قوة تعارض الحركة النسبية بين سطحين متلامسين. قد يكون مفيداً للمشي والفرملة، لكنه يسبب أيضاً فقدان جزء من الطاقة على شكل حرارة."],
+["القياس العلمي","يعتمد القياس العلمي على وحدات ومعايير موحدة لتسهيل مقارنة النتائج. يستخدم النظام الدولي وحدات أساسية مثل المتر والكيلوغرام والثانية والأمبير والكلفن والمول والكانديلا."]]},
+{id:"history",ar:"التاريخ",en:"History",icon:"🏛️",desc:"الحضارات والأحداث والشخصيات التي صنعت التاريخ.",articles:[
+["الحضارة المصرية القديمة","نشأت الحضارة المصرية القديمة على ضفاف نهر النيل، واستفادت من الزراعة والري والتنظيم الإداري. ترك المصريون آثاراً معمارية وفنية وكتابية مهمة، منها الأهرامات والمعابد."],
+["بلاد الرافدين","ظهرت في بلاد الرافدين مدن وممالك قديمة بين نهري دجلة والفرات. شهدت تطور الكتابة المسمارية والقوانين والمدن المنظمة وشبكات التجارة."],
+["طريق الحرير","كان طريق الحرير شبكة من طرق التجارة البرية والبحرية ربطت شرق آسيا بوسطها وغربها والبحر المتوسط. لم ينقل السلع فقط، بل ساهم في انتقال الأفكار والعلوم والأديان."],
+["الحضارة اليونانية","قدمت المدن اليونانية القديمة إسهامات في الفلسفة والرياضيات والمسرح والسياسة. وازدهرت مدارس فكرية ناقشت الطبيعة والأخلاق والحكم والمعرفة."],
+["الحضارة الرومانية","امتدت الدولة الرومانية على مساحات واسعة حول البحر المتوسط. عرفت بنظمها القانونية وطرقها ومنشآتها الهندسية وإدارتها العسكرية والسياسية."],
+["العصر العباسي","شهد العصر العباسي نشاطاً علمياً وثقافياً واسعاً، خاصة في بغداد. ازدهرت الترجمة والطب والرياضيات والفلك والأدب، وأسهم علماء من مناطق متعددة في هذا الحراك."],
+["الأندلس","كانت الأندلس اسماً لمناطق حكم إسلامي في شبه الجزيرة الإيبيرية خلال قرون. شهدت مدناً مزدهرة وتفاعلات ثقافية وعلمية ومعمارية بين مجتمعات متعددة."],
+["الثورة الصناعية","بدأت الثورة الصناعية في بريطانيا خلال القرن الثامن عشر، ثم انتشرت إلى مناطق أخرى. غيّرت الإنتاج والنقل والعمل من خلال الآلات والمصانع والطاقة البخارية."],
+["الكتابة عبر التاريخ","ظهرت أنظمة الكتابة القديمة لأغراض إدارية وتجارية ودينية. ساعدت الكتابة على حفظ المعرفة والقوانين والسجلات ونقل الخبرات بين الأجيال."],
+["التاريخ كمصدر للمعرفة","يدرس المؤرخون الماضي عبر الوثائق والآثار والنقوش والروايات والمصادر المادية. تتطلب دراسة التاريخ مقارنة الأدلة وفهم سياقها والتمييز بين الوقائع والتفسيرات."]]},
+{id:"geography",ar:"الجغرافيا",en:"Geography",icon:"🌍",desc:"القارات والدول والمناخ والجبال والأنهار.",articles:[
+["القارات السبع","تقسم اليابسة غالباً إلى سبع قارات: آسيا وأفريقيا وأوروبا وأمريكا الشمالية وأمريكا الجنوبية وأستراليا والقارة القطبية الجنوبية. تختلف طرق التقسيم حسب المناهج والتقاليد الجغرافية."],
+["المحيطات","تغطي المحيطات معظم سطح الأرض وتؤثر في المناخ ودورة الماء والحياة. المحيط الهادئ هو الأكبر مساحة، وتربط المحيطات بين النظم البيئية والاقتصادات."],
+["الجبال","تتشكل الجبال بفعل عمليات جيولوجية مثل تصادم الصفائح التكتونية والنشاط البركاني والرفع الأرضي. تؤثر في المناخ والأنهار والتنوع الحيوي والاستقرار البشري."],
+["الأنهار","الأنهار مجارٍ مائية طبيعية تتحرك من مناطق مرتفعة نحو البحيرات أو البحار أو المحيطات. توفر المياه للزراعة والمدن والنظم البيئية، وتحمل الرواسب التي تغير شكل الأرض."],
+["المناخ والطقس","الطقس يصف حالة الجو خلال فترة قصيرة، أما المناخ فيصف الأنماط المعتادة على مدى طويل. تتأثر بهما عوامل مثل خط العرض والارتفاع والبحار والرياح."],
+["الصحارى","الصحارى مناطق قليلة الهطول، وقد تكون حارة أو باردة. تتكيف النباتات والحيوانات فيها مع ندرة المياه والتغير الكبير في درجات الحرارة."],
+["البراكين","تحدث البراكين عندما تصل الصهارة والغازات من باطن الأرض إلى السطح. تختلف ثوراناتها في طبيعتها، وتساهم المواد البركانية في تشكيل تضاريس وترب جديدة."],
+["الصفائح التكتونية","الغلاف الصخري للأرض مقسم إلى صفائح تتحرك ببطء فوق طبقة أكثر ليونة. تفسر حركتها الزلازل وتكون الجبال واتساع قيعان المحيطات."],
+["الخرائط","تمثل الخرائط سطح الأرض أو أجزاء منه باستخدام رموز ومقاييس وإسقاطات. تساعد في تحديد المواقع وفهم المسافات والارتفاعات والحدود والظواهر الطبيعية والبشرية."],
+["خطوط الطول والعرض","تستخدم دوائر العرض لتحديد الموقع شمال أو جنوب خط الاستواء، وخطوط الطول لتحديد الموقع شرق أو غرب خط غرينتش. تساعد الإحداثيات في تحديد المواقع بدقة."]]},
+{id:"technology",ar:"التكنولوجيا",en:"Technology",icon:"💻",desc:"الحواسيب والإنترنت والبرمجة والذكاء الاصطناعي.",articles:[
+["كيف يعمل الحاسوب","يعالج الحاسوب البيانات عبر مكونات مثل المعالج والذاكرة والتخزين وأجهزة الإدخال والإخراج. تنفذ البرمجيات تعليمات منظمة تحول المدخلات إلى نتائج."],
+["الذكاء الاصطناعي","الذكاء الاصطناعي مجال يطور أنظمة تنفذ مهاماً تتطلب عادة قدرات مثل التعرف على الأنماط أو فهم اللغة أو التنبؤ. تعتمد كثير من تطبيقاته على نماذج تتعلم من البيانات."],
+["شبكة الإنترنت","الإنترنت شبكة عالمية من الشبكات المترابطة تتبادل البيانات باستخدام بروتوكولات موحدة. تتيح خدمات مثل الويب والبريد الإلكتروني والمكالمات ونقل الملفات."],
+["الأمن السيبراني","الأمن السيبراني مجموعة ممارسات وتقنيات لحماية الأنظمة والشبكات والبيانات. يشمل تحديث البرامج واستخدام كلمات مرور قوية والتحقق المتعدد والوعي بالتصيد."],
+["لغات البرمجة","لغات البرمجة تسمح للبشر بكتابة تعليمات يفهمها الحاسوب بعد ترجمتها أو تفسيرها. تختلف اللغات في الاستخدامات مثل تطوير الويب والتطبيقات والأنظمة وتحليل البيانات."],
+["قواعد البيانات","قواعد البيانات أنظمة منظمة لتخزين المعلومات وإدارتها واسترجاعها. تستخدم الجداول والعلاقات والاستعلامات في قواعد البيانات العلائقية، وتوجد نماذج أخرى تناسب أنواعاً مختلفة من البيانات."],
+["الحوسبة السحابية","تتيح الحوسبة السحابية استخدام موارد حاسوبية عبر الإنترنت مثل التخزين والخوادم وقواعد البيانات. تساعد المؤسسات على التوسع دون إدارة كل البنية التحتية محلياً."],
+["الروبوتات","تجمع الروبوتات بين الهندسة والبرمجة وأجهزة الاستشعار والتحكم. تستخدم في المصانع والطب والاستكشاف والبحث، وتختلف في درجة استقلاليتها وطبيعة المهام."],
+["الواقع الافتراضي","ينشئ الواقع الافتراضي بيئة رقمية غامرة يتفاعل معها المستخدم عبر أجهزة مثل النظارات وأدوات التحكم. يستخدم في التدريب والتعليم والألعاب والمحاكاة."],
+["تاريخ الهواتف الذكية","جمعت الهواتف الذكية بين الاتصال والحوسبة المحمولة والكاميرات والتطبيقات. تطورت من أجهزة اتصال متقدمة إلى منصات متعددة الوظائف تعتمد على أنظمة تشغيل ومتاجر تطبيقات."]]},
+{id:"biology",ar:"علم الأحياء",en:"Biology",icon:"🧬",desc:"الخلايا والجينات وأجهزة الجسم وعالم الكائنات.",articles:[
+["الخلية","الخلية الوحدة الأساسية للحياة. تحتوي الخلايا على مكونات تؤدي وظائف محددة، وتختلف الخلايا بدائية النواة عن حقيقية النواة في تنظيم مادتها الوراثية ووجود النواة."],
+["الحمض النووي DNA","يحمل الحمض النووي DNA المعلومات الوراثية للكائنات الحية. يتكون من سلسلتين ملتفتين، وتحدد قواعده تسلسل التعليمات التي تسهم في بناء البروتينات وتنظيم وظائف الخلية."],
+["الوراثة","تدرس الوراثة انتقال الصفات عبر الأجيال. تنتقل الجينات من الأبوين إلى الأبناء، وتتفاعل العوامل الوراثية مع البيئة في ظهور كثير من الصفات."],
+["الجهاز الهضمي","يحوّل الجهاز الهضمي الطعام إلى مواد أصغر يستطيع الجسم امتصاصها. يشمل الفم والمريء والمعدة والأمعاء وأعضاء مساعدة مثل الكبد والبنكرياس."],
+["الجهاز التنفسي","يسمح الجهاز التنفسي بدخول الأكسجين وخروج ثاني أكسيد الكربون. يحدث تبادل الغازات في الحويصلات الهوائية داخل الرئتين عبر جدران رقيقة تحيط بها شعيرات دموية."],
+["الجهاز العصبي","يتكون الجهاز العصبي من الدماغ والحبل الشوكي والأعصاب. يستقبل المعلومات الحسية ويعالجها وينسق الاستجابات والحركة والوظائف الحيوية."],
+["التمثيل الضوئي","تستخدم النباتات الضوء لتحويل الماء وثاني أكسيد الكربون إلى سكريات، وينتج عن العملية الأكسجين. تحدث المراحل الأساسية داخل البلاستيدات الخضراء."],
+["التطور الحيوي","يصف التطور التغير في الصفات الوراثية للجماعات عبر الأجيال. تشمل آلياته الانتقاء الطبيعي والطفرات والانجراف الوراثي وتدفق الجينات."],
+["المناعة","يحمي الجهاز المناعي الجسم من مسببات الأمراض عبر حواجز وخلايا وجزيئات دفاعية. تتضمن المناعة الفطرية استجابات سريعة، بينما تتميز المناعة التكيفية بالاستهداف والذاكرة المناعية."],
+["التوازن البيئي","تتفاعل الكائنات الحية مع بعضها ومع العوامل غير الحية في النظام البيئي. تؤثر التغيرات في الأنواع والموارد والمناخ في استقرار هذه العلاقات."]]},
+{id:"physics",ar:"الفيزياء",en:"Physics",icon:"⚛️",desc:"الحركة والقوى والكهرباء والضوء والطاقة.",articles:[
+["قوانين نيوتن","تصف قوانين نيوتن العلاقة بين القوة والحركة. يوضح القانون الأول القصور الذاتي، والثاني العلاقة بين القوة والكتلة والتسارع، والثالث أن لكل فعل رد فعل مساوياً له في المقدار ومعاكساً في الاتجاه."],
+["السرعة والتسارع","السرعة تقيس معدل تغير المسافة أو الإزاحة مع الزمن، بينما يقيس التسارع معدل تغير السرعة. تساعد الكميتان في وصف حركة الأجسام."],
+["الكهرباء","ترتبط الكهرباء بالشحنات الكهربائية وحركتها. في الدوائر الكهربائية يصف التيار معدل تدفق الشحنة، ويصف الجهد فرق الطاقة الكهربائية لكل وحدة شحنة."],
+["المغناطيسية","تنشأ الظواهر المغناطيسية من حركة الشحنات والخواص المغناطيسية للمواد. للمغناطيس قطبان، وتستخدم المجالات المغناطيسية في المحركات والمولدات وأجهزة طبية."],
+["الحرارة ودرجة الحرارة","الحرارة طاقة تنتقل بسبب فرق درجة الحرارة، أما درجة الحرارة فمقياس يرتبط بالحالة الحرارية للمادة. تنتقل الحرارة بالتوصيل والحمل والإشعاع."],
+["الموجات","تنقل الموجات الطاقة من مكان إلى آخر دون نقل دائم للمادة. من خصائصها الطول الموجي والتردد والسعة والسرعة، وتنقسم إلى ميكانيكية وكهرومغناطيسية."],
+["الضغط","يعرف الضغط بأنه القوة المؤثرة عمودياً على وحدة المساحة. يزداد الضغط عند زيادة القوة أو تقليل مساحة التلامس، ويظهر أثره في السوائل والغازات والمواد الصلبة."],
+["الطفو","تتعرض الأجسام المغمورة في مائع لقوة دفع إلى أعلى. يرتبط مقدار قوة الطفو بوزن المائع المزاح، وهو ما يفسر طفو السفن وغوص بعض الأجسام."],
+["الطاقة الحركية","الطاقة الحركية هي الطاقة التي يمتلكها الجسم بسبب حركته. تعتمد على كتلته ومربع سرعته، ولذلك تؤدي زيادة السرعة إلى زيادة كبيرة في الطاقة الحركية."],
+["النسبية","تصف نظرية النسبية الخاصة العلاقة بين المكان والزمان والحركة بسرعات عالية، بينما تفسر النسبية العامة الجاذبية بوصفها انحناء الزمكان بسبب الكتلة والطاقة."]]},
+{id:"chemistry",ar:"الكيمياء",en:"Chemistry",icon:"🧪",desc:"العناصر والتفاعلات والمركبات والمواد.",articles:[
+["الجدول الدوري","يرتب الجدول الدوري العناصر حسب العدد الذري، ويظهر أن العناصر في المجموعة الواحدة تتشابه في بعض خواصها الكيميائية. يساعد الجدول على فهم العلاقات بين العناصر."],
+["التفاعلات الكيميائية","في التفاعل الكيميائي تتحول المواد المتفاعلة إلى مواد جديدة عبر إعادة ترتيب الذرات والروابط. تبقى الذرات محفوظة، ولذلك تتوازن المعادلات الكيميائية."],
+["الأحماض والقواعد","تُعرف الأحماض والقواعد بطرق متعددة. في تعريف برونستد تمنح الأحماض البروتونات وتستقبلها القواعد، ويستخدم مقياس الرقم الهيدروجيني لوصف الحموضة والقلوية."],
+["حالات المادة","الحالات الشائعة للمادة هي الصلبة والسائلة والغازية، وتوجد أيضاً البلازما. ترتبط الحالة بترتيب الجسيمات وحركتها والطاقة والضغط ودرجة الحرارة."],
+["الروابط الكيميائية","تربط الروابط الكيميائية الذرات لتكوين الجزيئات والمركبات. من أنواعها الروابط الأيونية والتساهمية والفلزية، ولكل نوع خصائص تؤثر في سلوك المادة."],
+["المخاليط والمحاليل","المخلوط يجمع مواد دون تكوين مادة جديدة بالضرورة. المحلول مخلوط متجانس يتكون من مذيب ومذاب، وتختلف طرق فصل المخاليط بحسب خواص مكوناتها."],
+["الاحتراق","الاحتراق تفاعل كيميائي سريع بين مادة ومؤكسد، وغالباً الأكسجين، ويطلق طاقة حرارية وضوئية. تختلف نواتج الاحتراق حسب المادة وتوفر الأكسجين."],
+["الكربون","الكربون عنصر أساسي في كيمياء الحياة، ويستطيع تكوين روابط متنوعة ومستقرة. يدخل في تركيب المركبات العضوية والوقود والمواد الحيوية."],
+["الفلزات واللافلزات","تتميز كثير من الفلزات باللمعان والتوصيل وقابلية الطرق والسحب، بينما تختلف اللافلزات في خواصها. توجد أشباه الفلزات بخصائص وسطية مهمة في الإلكترونيات."],
+["الكيمياء في الحياة اليومية","تظهر الكيمياء في الطهي والتنظيف والبطاريات والأدوية والمواد. فهم تركيب المواد وتفاعلاتها يساعد على استخدامها بأمان وتفسير التغيرات اليومية."]]},
+{id:"animals",ar:"عالم الحيوان",en:"Animals",icon:"🦁",desc:"الحيوانات وطرق تكيفها وبيئاتها وسلوكها.",articles:[
+["الثدييات","الثدييات فقاريات تتميز بوجود الشعر أو الفرو وغدد تنتج الحليب لإطعام الصغار. تضم مجموعات متنوعة مثل الحيتان والخفافيش والفيلة والإنسان."],
+["الطيور","الطيور فقاريات يغطي أجسام معظمها الريش، ولها مناقير وأجنحة. تختلف قدرتها على الطيران، وتتنوع أنظمتها الغذائية وطرق هجرتها وتكاثرها."],
+["الحيوانات البحرية","تعيش الحيوانات البحرية في بيئات متنوعة من الشواطئ إلى أعماق المحيط. تشمل الثدييات والأسماك والرخويات والقشريات، ولكل مجموعة تكيفات خاصة."],
+["التكيف عند الحيوانات","التكيف صفات تساعد الكائنات على البقاء والتكاثر في بيئاتها. قد تكون الصفات تركيبية أو سلوكية أو فسيولوجية، وتتغير الجماعات عبر أجيال طويلة."],
+["الهجرة","تهاجر بعض الحيوانات موسمياً بحثاً عن الغذاء أو مناطق التكاثر أو ظروف مناخية ملائمة. تعتمد على إشارات بيئية وملاحة معقدة تختلف باختلاف النوع."],
+["الحيوانات المفترسة","تحصل الحيوانات المفترسة على الغذاء بصيد كائنات أخرى. تتنوع استراتيجيات الصيد بين المطاردة والكمين والعمل الجماعي، وتتأثر بتضاريس البيئة وسلوك الفريسة."],
+["الحشرات","الحشرات مجموعة كبيرة من المفصليات، ولها عادة ست أرجل وجسم مقسم إلى رأس وصدر وبطن. تؤدي أدواراً بيئية مثل التلقيح والتحلل، وبعضها آفات زراعية."],
+["الزواحف","الزواحف فقاريات تشمل السحالي والثعابين والسلاحف والتماسيح. تتميز غالباً بجلد حرشفي، وتختلف طرق تنظيم الحرارة والتكاثر بين أنواعها."],
+["الحياة في القطبين","تعيش كائنات متخصصة في البيئات القطبية الباردة. تتكيف مع البرودة عبر الفرو أو الدهون أو سلوكيات التجمع والهجرة، وتواجه تغيرات بيئية سريعة."],
+["التنوع الحيوي","يشمل التنوع الحيوي اختلاف الجينات والأنواع والنظم البيئية. يدعم خدمات طبيعية مثل التلقيح وتنقية المياه وتكوين التربة، ويتأثر بفقدان الموائل والتلوث والتغير المناخي."]]},
+{id:"oceans",ar:"المحيطات والبحار",en:"Oceans",icon:"🌊",desc:"أعماق البحار والتيارات والشعاب المرجانية.",articles:[
+["أعماق المحيط","تزداد الضغوط وتنخفض الإضاءة مع العمق في المحيط. تعيش كائنات متخصصة في الأعماق، ويعتمد بعضها على الغذاء الهابط من الطبقات العليا أو على مصادر كيميائية."],
+["الشعاب المرجانية","الشعاب المرجانية نظم بيئية غنية بالتنوع، تبنيها كائنات مرجانية صغيرة. تتأثر بارتفاع حرارة المياه والتلوث والتحمض والصيد غير المستدام."],
+["المد والجزر","ينتج المد والجزر أساساً عن تأثير جاذبية القمر والشمس ودوران الأرض. تتغير شدتهما وفق مواقع الأجرام وشكل السواحل وقاع البحر."],
+["التيارات البحرية","التيارات حركة مستمرة نسبياً لمياه المحيطات، تحركها الرياح واختلاف الكثافة ودوران الأرض وشكل الأحواض. تنقل الحرارة والمغذيات وتؤثر في المناخ."],
+["الحيتان","الحيتان ثدييات بحرية تتنفس الهواء وترضع صغارها. تضم الحيتان البالينية التي ترشح الغذاء والحيتان المسننة التي تشمل أنواعاً تستخدم تحديد الموقع بالصدى."],
+["البلاستيك في البحار","تصل النفايات البلاستيكية إلى البحار عبر الأنهار والسواحل والأنشطة البحرية. قد تبتلعها الكائنات أو تتشابك فيها، وتتحلل ببطء إلى قطع أصغر."],
+["السلاسل الغذائية البحرية","تبدأ كثير من السلاسل الغذائية البحرية بالعوالق النباتية التي تحول ضوء الشمس إلى طاقة كيميائية. تنتقل الطاقة إلى العوالق الحيوانية والأسماك والمفترسات."],
+["استكشاف قاع البحر","يستخدم العلماء الغواصات والمركبات الآلية والسونار لرسم خرائط قاع البحر ودراسة البيئات العميقة. ما زالت مساحات واسعة من قاع المحيط غير مستكشفة تفصيلياً."],
+["تحمض المحيطات","يمتص المحيط جزءاً من ثاني أكسيد الكربون في الغلاف الجوي، ما يغير كيمياء مياه البحر ويخفض الرقم الهيدروجيني. قد يصعب ذلك تكوين الأصداف والهياكل الكلسية لبعض الكائنات."],
+["حماية الحياة البحرية","تتطلب حماية البحار إدارة الصيد وتقليل التلوث وحماية الموائل وإنشاء مناطق بحرية محمية. ويعتمد نجاحها على التعاون العلمي والمجتمعي والدولي."]]},
+{id:"inventions",ar:"الاختراعات والاكتشافات",en:"Inventions",icon:"💡",desc:"أفكار وأدوات غيّرت حياة البشر.",articles:[
+["اختراع الطباعة","ساهمت الطباعة بالحروف المتحركة في أوروبا في القرن الخامس عشر في توسيع تداول الكتب والمعرفة. سبقتها تقنيات طباعة مهمة في شرق آسيا."],
+["المصباح الكهربائي","لم يكن المصباح الكهربائي اختراع شخص واحد فقط؛ فقد ساهم عدد من المخترعين في تطوير المصابيح العملية وأنظمة توزيع الكهرباء التي جعلت الإضاءة متاحة على نطاق واسع."],
+["الطائرة","تطور الطيران بفضل أبحاث الرفع والمحركات والتحكم. حقق الأخوان رايت رحلة ناجحة بطائرة تعمل بمحرك عام 1903، ثم تسارعت صناعة الطيران."],
+["الهاتف","تطور الهاتف من أجهزة تنقل الصوت عبر الأسلاك إلى شبكات رقمية وهواتف محمولة. ارتبط تاريخه بجهود مخترعين ومهندسين وشركات متعددة."],
+["التلسكوب","يجمع التلسكوب الضوء أو الإشارات من الأجرام البعيدة لتسهيل دراستها. أحدثت التلسكوبات البصرية والراديوية والفضائية قفزات في فهم الكون."],
+["المجهر","يسمح المجهر برؤية تفاصيل أصغر من قدرة العين المجردة. ساعدت المجاهر على اكتشاف الخلايا والكائنات الدقيقة وتطوير الطب والأحياء وعلوم المواد."],
+["المطبعة الرقمية","تستخدم الطباعة الرقمية ملفات إلكترونية لإنتاج النسخ مباشرة، دون الحاجة إلى ألواح الطباعة التقليدية في كثير من التطبيقات. تناسب الإنتاج القصير والتخصيص."],
+["الأقمار الصناعية","تدور الأقمار الصناعية حول الأرض أو أجرام أخرى لأغراض الاتصالات والملاحة والطقس والرصد العلمي. تعتمد فائدتها على المدارات والأجهزة والمحطات الأرضية."],
+["المحرك البخاري","حوّل المحرك البخاري الطاقة الحرارية إلى حركة ميكانيكية، وأسهم في تشغيل المصانع والقطارات والسفن خلال الثورة الصناعية."],
+["اللقاحات","تدرب اللقاحات الجهاز المناعي على التعرف إلى مسببات مرضية أو أجزاء منها. ساهمت برامج التطعيم في الحد من انتشار أمراض خطيرة وإنقاذ أعداد كبيرة من الأرواح."]]},
+{id:"sports",ar:"الرياضات",en:"Sports",icon:"🏅",desc:"ألعاب رياضية وقواعدها وبطولاتها ومهاراتها.",articles:[
+["كرة السلة","كرة السلة لعبة جماعية يتنافس فيها فريقان لتسجيل النقاط بإدخال الكرة في سلة الخصم. تتضمن مهارات التمرير والتصويب والمراوغة والدفاع."],
+["التنس","التنس رياضة مضرب تُلعب فردياً أو زوجياً. يتبادل اللاعبون ضرب الكرة فوق الشبكة، ويُحتسب الفوز بالأشواط والمجموعات وفق نظام البطولة."],
+["السباحة","السباحة رياضة ومهارة مائية لها أساليب متعددة مثل الحرة والظهر والصدر والفراشة. تتطلب تنسيق الحركة والتنفس والتحمل."],
+["ألعاب القوى","تشمل ألعاب القوى مسابقات الجري والقفز والرمي والمشي الرياضي. تقام في المضمار والميدان، وتختلف متطلبات السرعة والقوة والتحمل بين المنافسات."],
+["كرة الطائرة","يتبادل فريقان الكرة فوق شبكة، ويحاول كل فريق إسقاطها في ملعب الخصم. يسمح لكل فريق عادة بثلاث لمسات لإعادة الكرة."],
+["الشطرنج","الشطرنج لعبة استراتيجية بين لاعبين على رقعة من 64 مربعاً. يهدف كل لاعب إلى وضع ملك الخصم تحت كش مات باستخدام قطع ذات حركات مختلفة."],
+["الرياضات الأولمبية","تجمع الألعاب الأولمبية رياضيين من دول متعددة في مسابقات متنوعة. تقام الألعاب الصيفية والشتوية وفق دورات منتظمة، وتدير الحركة الأولمبية اللجنة الأولمبية الدولية."],
+["اللياقة البدنية","تتضمن اللياقة عناصر مثل التحمل القلبي التنفسي والقوة والمرونة والتوازن. يساعد التدريب المتدرج والراحة والتغذية المناسبة على تطوير الأداء والصحة."],
+["التحكيم الرياضي","يطبق الحكام قوانين اللعبة ويحافظون على سير المنافسة والعدالة. تختلف صلاحياتهم وأدواتهم بحسب الرياضة، وتستخدم بعض الألعاب تقنيات مساعدة للمراجعة."],
+["الروح الرياضية","تعني الروح الرياضية احترام المنافس والحكام والقواعد، وتقبل الفوز والخسارة. تساعد على جعل المنافسة أكثر عدلاً وأماناً ومتعة للجميع."]]},
+{id:"environment",ar:"البيئة والمناخ",en:"Environment",icon:"🌱",desc:"التغير المناخي والتلوث والاستدامة والطبيعة.",articles:[
+["التغير المناخي","يشير التغير المناخي إلى تغيرات طويلة الأمد في درجات الحرارة وأنماط الطقس. يؤدي ازدياد غازات الدفيئة الناتجة عن الأنشطة البشرية إلى تعزيز الاحترار العالمي."],
+["الاحتباس الحراري","تحتجز غازات الدفيئة جزءاً من الحرارة في الغلاف الجوي. هذه الظاهرة الطبيعية ضرورية للحياة، لكن ارتفاع تركيز الغازات بسبب النشاط البشري يزيد الاحترار."],
+["إعادة التدوير","تعيد إعادة التدوير معالجة مواد مستخدمة لتدخل في إنتاج مواد أو منتجات جديدة. تقلل الحاجة إلى بعض الموارد الخام، لكن تقليل الاستهلاك وإعادة الاستخدام يظلان مهمين."],
+["التلوث الهوائي","ينتج تلوث الهواء عن مصادر مثل النقل والصناعة وحرق الوقود والحرائق. قد تؤثر الجسيمات والغازات الضارة في صحة الإنسان والنظم البيئية."],
+["الغابات","توفر الغابات موائل للكائنات وتخزن الكربون وتحمي التربة وتنظم دورة المياه. تتعرض للضغط بسبب إزالة الغابات والحرائق وتغير المناخ."],
+["المياه العذبة","المياه العذبة مورد محدود مقارنة بإجمالي مياه الأرض. توجد في الأنهار والبحيرات والمياه الجوفية والجليد، وتحتاج إلى إدارة فعالة للحد من الهدر والتلوث."],
+["الطاقة الشمسية","تحول الألواح الكهروضوئية ضوء الشمس إلى كهرباء. يعتمد إنتاجها على شدة الإشعاع والطقس والاتجاه والمساحة، ويمكن دمجها مع أنظمة التخزين."],
+["التنوع البيئي","يحافظ التنوع البيئي على توازن الأنظمة الطبيعية ومرونتها. تتطلب حمايته صون المواطن الطبيعية والحد من الأنواع الغازية والتلوث والاستغلال المفرط."],
+["التصحر","التصحر تدهور الأراضي في المناطق الجافة وشبه الجافة نتيجة عوامل مناخية وأنشطة بشرية. تساعد إدارة التربة والمياه والغطاء النباتي في الحد منه."],
+["الاستدامة","تهدف الاستدامة إلى تلبية احتياجات الحاضر دون الإضرار بقدرة الأجيال القادمة على تلبية احتياجاتها. تشمل أبعاداً بيئية واقتصادية واجتماعية مترابطة."]]},
+{id:"math",ar:"الرياضيات",en:"Mathematics",icon:"📐",desc:"الأعداد والهندسة والإحصاء والمنطق.",articles:[
+["الأعداد الأولية","العدد الأولي عدد صحيح أكبر من واحد لا يقبل القسمة دون باقٍ إلا على نفسه وعلى الواحد. تلعب الأعداد الأولية دوراً مهماً في نظرية الأعداد والتشفير."],
+["الهندسة","تدرس الهندسة الأشكال والمساحات والأحجام والعلاقات المكانية. تشمل موضوعات مثل المثلثات والدوائر والمضلعات والتحويلات الهندسية."],
+["نظرية فيثاغورس","في المثلث القائم، مربع طول الوتر يساوي مجموع مربعي طولي الضلعين الآخرين. تستخدم النظرية لحساب الأطوال في الهندسة والقياسات."],
+["الإحصاء","يجمع الإحصاء البيانات وينظمها ويحللها ويفسرها. تشمل أدواته المتوسط والوسيط والمنوال والمدى والرسوم البيانية ومقاييس التشتت."],
+["الاحتمالات","تقيس الاحتمالات مدى إمكانية وقوع حدث، وتتراوح قيمتها بين صفر وواحد. تستخدم في تحليل المخاطر والألعاب والتجارب والعلوم."],
+["الجبر","يستخدم الجبر الرموز والمتغيرات لتمثيل العلاقات وحل المعادلات. يساعد على تعميم الأنماط والتعامل مع كميات مجهولة."],
+["الأعداد السالبة","تمثل الأعداد السالبة قيماً أقل من الصفر، وتستخدم في درجات الحرارة والديون والارتفاعات تحت مستوى مرجعي. تخضع لقواعد محددة في العمليات الحسابية."],
+["النسبة والتناسب","تصف النسبة مقارنة بين كميتين، ويحدث التناسب عندما تبقى نسبة كميتين ثابتة. يستخدم في الخرائط والوصفات والسرعة والمقاييس."],
+["الدوال","الدالة علاقة تربط كل مدخل من مجموعة معينة بمخرج واحد. تستخدم الدوال لوصف العلاقات والتغيرات في الرياضيات والعلوم والاقتصاد."],
+["الأشكال ثلاثية الأبعاد","للأشكال ثلاثية الأبعاد طول وعرض وارتفاع، مثل المكعب والكرة والأسطوانة والمخروط. تدرس خصائصها عبر المساحة السطحية والحجم."]]},
+{id:"culture",ar:"الثقافة واللغة",en:"Culture & Language",icon:"🎭",desc:"اللغات والأدب والفنون والعادات حول العالم.",articles:[
+["نشأة اللغات","تطورت اللغات البشرية عبر تفاعلات اجتماعية وتاريخية طويلة. تتغير الأصوات والمفردات والقواعد بمرور الزمن، وتنشأ لهجات ولغات جديدة."],
+["اللغة العربية","العربية لغة سامية لها تاريخ أدبي وعلمي واسع. تستخدم الأبجدية العربية في الكتابة، وتتنوع أنماطها بين الفصحى واللهجات المحلية."],
+["الأدب العالمي","يشمل الأدب أشكالاً مثل الرواية والشعر والمسرح والقصة. يعكس تجارب المجتمعات وأسئلتها، وينقل الأفكار عبر الأزمنة والثقافات."],
+["الفنون التشكيلية","تضم الفنون التشكيلية الرسم والنحت والطباعة وأشكالاً بصرية أخرى. يستخدم الفنانون اللون والخط والملمس والتكوين للتعبير عن أفكار وتجارب."],
+["الموسيقى حول العالم","تختلف الموسيقى في الإيقاعات والآلات والسلالم والأساليب بين الثقافات. تنتقل التقاليد الموسيقية بالتعلم والممارسة والتبادل الثقافي."],
+["التراث العالمي","يشمل التراث العالمي مواقع طبيعية وثقافية ذات قيمة استثنائية للبشرية. تعمل جهات دولية ومحلية على توثيقها وحمايتها للأجيال القادمة."],
+["الخط العربي","فن الخط العربي يعتني بتشكيل الحروف والكلمات في تكوينات جمالية. تطورت أنماط متعددة مثل النسخ والثلث والديواني والكوفي."],
+["المتاحف","تحفظ المتاحف المقتنيات وتعرضها وتفسر سياقها التاريخي والعلمي والفني. تؤدي دوراً تعليمياً وبحثياً وتساعد الجمهور على فهم التراث."],
+["التبادل الثقافي","يحدث التبادل الثقافي عبر التجارة والهجرة والتعليم والسفر والإعلام. يؤدي إلى انتقال الأطعمة واللغات والفنون والأفكار، وقد ينتج أشكالاً ثقافية جديدة."],
+["القراءة والمعرفة","تساعد القراءة على توسيع المفردات وبناء المعرفة وتنمية التفكير النقدي. تختلف أساليب القراءة حسب الهدف، من التصفح السريع إلى الدراسة المتعمقة."]]}
 ];
 
-let state=JSON.parse(localStorage.getItem("qn_state")||"null")||{
- name:"Guest",xp:0,quizzes:0,favorites:[],theme:"light",lang:"ar"
-};
-function save(){
- localStorage.setItem("qn_state",JSON.stringify(state));
- updateStats();
+const questions=[
+["football","easy","كم لاعباً يبدأ به كل فريق مباراة كرة القدم؟",["9","10","11","12"],2,"يتكون الفريق داخل الملعب من 11 لاعباً، بمن فيهم حارس المرمى."],
+["football","medium","في أي عام أقيمت أول بطولة لكأس العالم؟",["1920","1930","1940","1950"],1,"أقيمت النسخة الأولى عام 1930 في الأوروغواي."],
+["football","hard","ما الجهة المسؤولة عن تنظيم كأس العالم؟",["UEFA","AFC","FIFA","IOC"],2,"الاتحاد الدولي لكرة القدم FIFA ينظم كأس العالم."],
+["football","easy","ما اسم اللاعب الذي يحمي مرمى فريقه؟",["المهاجم","الحارس","الجناح","المدافع"],1,"حارس المرمى هو المسؤول الأساسي عن حماية المرمى."],
+["football","medium","كم دقيقة مدة الشوط الواحد في المباراة الرسمية عادة؟",["30","35","45","50"],2,"مدة الشوط الواحد 45 دقيقة قبل الوقت بدل الضائع."],
+["space","easy","ما النجم الموجود في مركز نظامنا الشمسي؟",["الشمس","الشعرى","النجم القطبي","سيريوس"],0,"الشمس هي النجم الذي تدور حوله كواكب النظام الشمسي."],
+["space","medium","ما الكوكب المعروف بالكوكب الأحمر؟",["الزهرة","المريخ","عطارد","نبتون"],1,"يظهر المريخ بلون أحمر بسبب أكاسيد الحديد."],
+["space","hard","ما اسم المجرة التي ينتمي إليها النظام الشمسي؟",["المرأة المسلسلة","درب التبانة","مجرة المثلث","السومبريرو"],1,"النظام الشمسي جزء من مجرة درب التبانة."],
+["science","easy","ما وحدة قياس القوة في النظام الدولي؟",["الجول","النيوتن","الواط","الأمبير"],1,"تقاس القوة بوحدة النيوتن."],
+["science","medium","ما الغاز الذي تمتصه النباتات في البناء الضوئي؟",["الأكسجين","النيتروجين","ثاني أكسيد الكربون","الهيدروجين"],2,"تستخدم النباتات ثاني أكسيد الكربون والماء والضوء لصنع السكريات."],
+["science","hard","ما سرعة الضوء التقريبية في الفراغ؟",["30 ألف كم/ث","150 ألف كم/ث","300 ألف كم/ث","مليون كم/ث"],2,"سرعة الضوء تقارب 300 ألف كيلومتر في الثانية."],
+["history","easy","أي نهر ارتبط بالحضارة المصرية القديمة؟",["الأمازون","النيل","الدانوب","الراين"],1,"اعتمدت مصر القديمة على نهر النيل في الزراعة والحياة."],
+["history","medium","أين ظهرت حضارات بلاد الرافدين؟",["بين دجلة والفرات","بين النيل والكونغو","بين الراين والسين","بين السند والغانج"],0,"نشأت مدن بلاد الرافدين بين نهري دجلة والفرات."],
+["history","hard","في أي قرن بدأت الثورة الصناعية في بريطانيا؟",["الخامس عشر","السادس عشر","الثامن عشر","العشرين"],2,"بدأت الثورة الصناعية في القرن الثامن عشر."],
+["geography","easy","ما أكبر محيط على الأرض؟",["الأطلسي","الهندي","المتجمد الشمالي","الهادئ"],3,"المحيط الهادئ هو الأكبر مساحة."],
+["geography","medium","ما الخط الذي يقسم الأرض إلى نصفين شمالي وجنوبي؟",["غرينتش","خط الاستواء","مدار السرطان","مدار الجدي"],1,"خط الاستواء يقع عند دائرة عرض صفر."],
+["geography","hard","ما السبب الرئيسي لحركة الصفائح التكتونية؟",["الرياح","حركة باطن الأرض","المد والجزر","ضوء الشمس"],1,"ترتبط حركة الصفائح بديناميات باطن الأرض ووشاحها."],
+["technology","easy","ما الجزء الذي ينفذ التعليمات في الحاسوب؟",["الشاشة","المعالج","السماعة","الفأرة"],1,"وحدة المعالجة المركزية تنفذ التعليمات وتعالج البيانات."],
+["technology","medium","ماذا تعني CPU؟",["وحدة المعالجة المركزية","ذاكرة الوصول العشوائي","وحدة التخزين","نظام التشغيل"],0,"CPU اختصار لوحدة المعالجة المركزية."],
+["technology","hard","ما وظيفة HTTPS الأساسية؟",["ضغط الصور","تشفير الاتصال بالموقع","زيادة سرعة المعالج","حذف الملفات"],1,"HTTPS يستخدم تشفير الاتصال بين المتصفح والموقع."],
+["biology","easy","ما الوحدة الأساسية للحياة؟",["الذرة","الخلية","النسيج","العضو"],1,"الخلية هي الوحدة الأساسية للكائنات الحية."],
+["biology","medium","أين توجد المادة الوراثية DNA في الخلايا حقيقية النواة غالباً؟",["النواة","الجدار الخلوي","الفجوة فقط","الغشاء الخارجي"],0,"توجد معظم المادة الوراثية في نواة الخلية."],
+["biology","hard","ما العملية التي تصنع فيها النباتات السكريات باستخدام الضوء؟",["التنفس","التخمر","البناء الضوئي","الهضم"],2,"البناء الضوئي يحول الطاقة الضوئية إلى طاقة كيميائية."],
+["physics","easy","ما وحدة قياس الزمن الأساسية؟",["المتر","الثانية","الكيلوغرام","الكلفن"],1,"الثانية هي وحدة الزمن الأساسية في النظام الدولي."],
+["physics","medium","أي قانون يربط القوة بالكتلة والتسارع؟",["قانون نيوتن الثاني","قانون أوم","قانون الانعكاس","قانون بويل"],0,"القوة المحصلة تساوي الكتلة مضروبة في التسارع."],
+["physics","hard","هل ينتقل الصوت في الفراغ؟",["نعم دائماً","لا، يحتاج وسطاً","فقط ليلاً","فقط في الماء"],1,"الصوت موجة ميكانيكية تحتاج إلى وسط مادي."],
+["chemistry","easy","ما الرمز الكيميائي للأكسجين؟",["Ox","O","Og","O2 فقط"],1,"رمز عنصر الأكسجين هو O."],
+["chemistry","medium","كم عدد البروتونات في ذرة الكربون؟",["4","5","6","8"],2,"العدد الذري للكربون 6، وهو عدد بروتوناته."],
+["chemistry","hard","ما قيمة الرقم الهيدروجيني للماء النقي تقريباً عند 25 درجة؟",["2","5","7","12"],2,"الماء النقي متعادل تقريباً ورقمه الهيدروجيني 7."],
+["animals","easy","أي الحيوانات التالية من الثدييات؟",["القرش","الدلفين","الأخطبوط","التمساح"],1,"الدلفين ثديي يتنفس الهواء ويرضع صغاره."],
+["animals","medium","كم عدد أرجل الحشرة؟",["4","6","8","10"],1,"للحشرات ست أرجل."],
+["animals","hard","ما اسم دراسة سلوك الحيوان؟",["علم الفلك","علم السلوك الحيواني","علم الصخور","علم المناخ"],1,"علم السلوك الحيواني يدرس سلوك الحيوانات وأسبابه."],
+["oceans","easy","ما الحيوان الذي يتنفس الهواء ويعيش في البحر؟",["الحوت","الأخطبوط","قنديل البحر","نجم البحر"],0,"الحيتان ثدييات بحرية تصعد إلى السطح للتنفس."],
+["oceans","medium","ما العامل الرئيسي المسؤول عن المد والجزر؟",["الرياح فقط","جاذبية القمر والشمس","الأمطار","البراكين"],1,"تؤثر جاذبية القمر والشمس في مياه المحيطات."],
+["oceans","hard","ما الكائنات التي تشكل أساس كثير من السلاسل الغذائية البحرية؟",["العوالق النباتية","أسماك القرش","الحيتان","السلاحف"],0,"العوالق النباتية تنتج المادة العضوية باستخدام ضوء الشمس."],
+["inventions","easy","أي أداة تستخدم لرؤية الأجسام الدقيقة؟",["التلسكوب","المجهر","البوصلة","الميزان"],1,"المجهر يكبر الأجسام والتفاصيل الصغيرة."],
+["inventions","medium","في أي عام حقق الأخوان رايت رحلة طيران بمحرك؟",["1803","1850","1903","1950"],2,"كانت رحلتهما الشهيرة عام 1903."],
+["inventions","hard","ما وظيفة القمر الصناعي الخاص بالطقس؟",["قياس أعماق البحار فقط","رصد الغلاف الجوي والسحب","توليد الزلازل","إيقاف الأعاصير"],1,"تراقب أقمار الطقس السحب والحرارة وأنظمة الطقس."],
+["sports","easy","كم لاعباً من كل فريق يكون داخل ملعب كرة السلة؟",["4","5","6","7"],1,"يلعب خمسة لاعبين من كل فريق داخل الملعب."],
+["sports","medium","كم مربعاً في رقعة الشطرنج؟",["36","49","64","81"],2,"رقعة الشطرنج تتكون من 8 في 8، أي 64 مربعاً."],
+["sports","hard","ما اسم الضربة التي تبدأ بها نقطة التنس؟",["الإرسال","الضربة الساحقة","اللوب","القطع"],0,"تبدأ النقطة بإرسال أحد اللاعبين."],
+["environment","easy","أي مصدر طاقة متجدد يعتمد على ضوء الشمس؟",["الفحم","النفط","الطاقة الشمسية","الغاز"],2,"الألواح الشمسية تحول ضوء الشمس إلى كهرباء."],
+["environment","medium","ما الغاز الأبرز المرتبط بالاحترار العالمي الناتج عن حرق الوقود؟",["الأكسجين","ثاني أكسيد الكربون","الهيليوم","النيون"],1,"ثاني أكسيد الكربون من أهم غازات الدفيئة الناتجة عن الأنشطة البشرية."],
+["environment","hard","ما المقصود بالتصحر؟",["زيادة الغابات","تدهور الأراضي في المناطق الجافة","تجمد المحيطات","ارتفاع المد"],1,"التصحر تدهور الأراضي في المناطق الجافة وشبه الجافة."],
+["math","easy","كم يساوي 7 × 8؟",["54","56","58","64"],1,"7 مضروبة في 8 تساوي 56."],
+["math","medium","ما مجموع زوايا المثلث؟",["90","180","270","360"],1,"مجموع زوايا أي مثلث في الهندسة الإقليدية 180 درجة."],
+["math","hard","ما العدد الأولي من الخيارات التالية؟",["21","27","29","33"],2,"29 لا يقبل القسمة إلا على 1 وعلى نفسه."],
+["culture","easy","ما اللغة التي كُتب بها كثير من التراث العربي؟",["العربية","الصينية","اللاتينية","اليابانية"],0,"العربية لغة تراث أدبي وعلمي واسع."],
+["culture","medium","أي نوع من الخط العربي يعد من الأنماط المعروفة؟",["الثلث","الروماني","السيريلية","الهيروغليفي"],0,"خط الثلث أحد أشهر أنماط الخط العربي."],
+["culture","hard","ما الجهة الدولية المعروفة بإدارة قائمة التراث العالمي؟",["الفيفا","اليونسكو","منظمة التجارة العالمية","الإنتربول"],1,"اليونسكو تدير اتفاقية التراث العالمي بالتعاون مع الدول الأطراف."]
+];
+
+let state=JSON.parse(localStorage.getItem("qn3_state")||"null")||{xp:0,done:0,correct:0,total:0,favorites:[],history:[],name:"مستكشف QUIZNEX",theme:"light",lang:"ar"};
+let lang=state.lang||"ar",currentCategory=null,currentArticle=null,quizQuestions=[],qIndex=0,score=0,answered=false;
+function save(){state.lang=lang;localStorage.setItem("qn3_state",JSON.stringify(state));updateStats()}
+function updateStats(){
+ document.getElementById("xp").textContent=state.xp;
+ document.getElementById("level").textContent=Math.floor(state.xp/100)+1;
+ document.getElementById("done").textContent=state.done;
+ document.getElementById("saved").textContent=state.favorites.length;
+ document.getElementById("profileXP").textContent=state.xp;
+ document.getElementById("profileLevel").textContent=Math.floor(state.xp/100)+1;
+ document.getElementById("profileDone").textContent=state.done;
+ document.getElementById("profileAccuracy").textContent=state.total?Math.round(state.correct/state.total*100)+"%":"0%";
+ document.getElementById("profileName").textContent=state.name;
 }
-function t(key){return translations[state.lang][key]||key}
-function applyLanguage(){
- document.documentElement.lang=state.lang;
- document.documentElement.dir=state.lang==="ar"?"rtl":"ltr";
- document.querySelectorAll("[data-t]").forEach(el=>{
-  el.textContent=t(el.dataset.t);
- });
- document.querySelectorAll("[data-placeholder]").forEach(el=>{
-  el.placeholder=t(el.dataset.placeholder);
- });
- document.getElementById("langBtn").textContent=state.lang==="ar"?"🇬🇧 EN":"🇸🇦 AR";
- renderCategories();
- renderBadges();
-}
-function applyTheme(){
- document.body.classList.toggle("dark",state.theme==="dark");
- document.getElementById("themeBtn").textContent=state.theme==="dark"?"☀️":"🌙";
-}
-document.getElementById("langBtn").onclick=()=>{
- state.lang=state.lang==="ar"?"en":"ar";save();applyLanguage();
-};
-document.getElementById("themeBtn").onclick=()=>{
- state.theme=state.theme==="dark"?"light":"dark";save();applyTheme();
-};
 function showPage(id){
- document.querySelectorAll(".page").forEach(p=>p.classList.remove("active"));
- document.getElementById(id).classList.add("active");
- document.querySelectorAll("[data-page]").forEach(b=>{
-  b.classList.toggle("active",b.dataset.page===id);
- });
- window.scrollTo({top:0,behavior:"smooth"});
+ document.querySelectorAll("main section").forEach(s=>s.classList.add("hidden"));
+ document.getElementById(id).classList.remove("hidden");
+ window.scrollTo(0,0);
+ if(id==="encyclopedias")renderCategories();
+ if(id==="profile")renderProfile();
+ if(id==="quizzes")fillQuizCategories();
 }
-document.querySelectorAll("[data-page]").forEach(b=>{
- b.addEventListener("click",()=>showPage(b.dataset.page));
-});
-function categoryCard(c){
- return `<article class="card">
- <img src="${c.img}" alt="${t(c.key)}" loading="lazy">
- <div class="card-body"><span class="tag">${c.icon} QUIZNEX</span>
- <h3>${t(c.key)}</h3><p>${t(c.desc)}</p>
- <button class="secondary-btn" onclick="comingSoon()">${t("startCategory")}</button>
- </div></article>`;
+function toggleTheme(){document.body.classList.toggle("dark");state.theme=document.body.classList.contains("dark")?"dark":"light";document.getElementById("themeBtn").textContent=state.theme==="dark"?"☀️":"🌙";save()}
+function toggleLang(){
+ lang=lang==="ar"?"en":"ar";document.documentElement.lang=lang;document.documentElement.dir=lang==="ar"?"rtl":"ltr";
+ document.getElementById("langBtn").textContent=lang==="ar"?"English":"العربية";
+ document.querySelectorAll("[data-ar]").forEach(el=>el.textContent=el.dataset[lang]);
+ document.getElementById("categorySearch").placeholder=lang==="ar"?"ابحث عن موسوعة...":"Search encyclopedias...";
+ document.getElementById("articleSearch").placeholder=lang==="ar"?"ابحث في المقالات...":"Search articles...";
+ save();renderCategories();if(currentCategory)renderArticles();
 }
 function renderCategories(){
- const html=categories.map(categoryCard).join("");
- document.getElementById("homeCategories").innerHTML=html;
- document.getElementById("allCategories").innerHTML=html;
+ const q=(document.getElementById("categorySearch").value||"").toLowerCase();
+ const list=categories.filter(c=>(c[lang]+c.desc+c.ar+c.en).toLowerCase().includes(q));
+ document.getElementById("categoryCount").textContent=categories.length+" / 15";
+ document.getElementById("categoryGrid").innerHTML=list.map(c=>`<div class="card" onclick="openCategory('${c.id}')"><div class="card-img">${c.icon}</div><div class="card-content"><h3>${c[lang]}</h3><p>${c.desc}</p><span class="pill">${c.articles.length} ${lang==="ar"?"مقالات":"articles"}</span></div></div>`).join("");
 }
-document.getElementById("searchInput").addEventListener("input",e=>{
- const q=e.target.value.toLowerCase();
- const filtered=categories.filter(c=>
-  (t(c.key)+" "+c.id).toLowerCase().includes(q)
- );
- document.getElementById("allCategories").innerHTML=
- filtered.length?filtered.map(categoryCard).join():
- `<div class="empty">${t("noResults")}</div>`;
-});
-function comingSoon(){
- alert(t("articles"));
+function openCategory(id){currentCategory=categories.find(c=>c.id===id);document.getElementById("articleHeading").textContent=currentCategory[lang];document.getElementById("articleSearch").value="";renderArticles();showPage("articles")}
+function renderArticles(){
+ if(!currentCategory)return;
+ const q=(document.getElementById("articleSearch").value||"").toLowerCase();
+ const items=currentCategory.articles.filter(a=>a[0].toLowerCase().includes(q)||a[1].toLowerCase().includes(q));
+ document.getElementById("articleList").innerHTML=items.map((a,i)=>`<div class="article-card"><h3>${a[0]}</h3><p>${a[1].slice(0,180)}...</p><div class="article-meta"><span class="muted">${lang==="ar"?"مقال معرفي":"Knowledge article"}</span><button class="btn small" onclick="openArticle('${currentCategory.id}',${currentCategory.articles.indexOf(a)})">${lang==="ar"?"اقرأ المقال ←":"Read article →"}</button></div></div>`).join("")||`<div class="notice">${lang==="ar"?"لا توجد نتائج.":"No results found."}</div>`;
 }
-function updateStats(){
- const level=Math.floor(state.xp/100)+1;
- const progress=state.xp%100;
- ["homeXP","profileXP","rankXP"].forEach(id=>{
-  const el=document.getElementById(id);if(el)el.textContent=state.xp+(id==="rankXP"?" XP":"");
- });
- document.getElementById("homeQuizzes").textContent=state.quizzes;
- document.getElementById("profileQuizzes").textContent=state.quizzes;
- document.getElementById("homeLevel").textContent=level;
- document.getElementById("profileLevel").textContent=level;
- document.getElementById("homeFav").textContent=state.favorites.length;
- document.getElementById("levelProgress").style.width=progress+"%";
- document.getElementById("progressText").textContent=
- state.xp+" XP • "+progress+"/100 XP";
- document.getElementById("guestName").textContent=state.name;
- document.getElementById("nameInput").value=state.name==="Guest"?"":state.name;
+function openArticle(id,index){
+ currentCategory=categories.find(c=>c.id===id);currentArticle=currentCategory.articles[index];
+ document.getElementById("readerCategory").textContent=currentCategory[lang];
+ document.getElementById("readerTitle").textContent=currentArticle[0];
+ document.getElementById("readerIntro").textContent=lang==="ar"?"مقال من موسوعة "+currentCategory.ar:"An article from the "+currentCategory.en+" encyclopedia";
+ document.getElementById("readerBody").textContent=currentArticle[1]+"\n\n"+(lang==="ar"?"لفهم هذا الموضوع بصورة أعمق، حاول ربط المعلومات الواردة هنا بالأمثلة الواقعية، وابحث عن مصادر علمية موثوقة عند الحاجة إلى تفاصيل إضافية. المعرفة العلمية والتاريخية تتطور باستمرار، لذلك من المفيد مقارنة المعلومات والتحقق من تاريخها ومصدرها.":"To explore this topic further, connect these ideas to real-world examples and consult reliable sources for additional detail. Scientific and historical knowledge develops over time, so comparing sources and checking their dates is useful.");
+ updateFavoriteButton();showPage("reader");
 }
-function saveName(){
- const name=document.getElementById("nameInput").value.trim();
- if(!name)return;
- state.name=name.slice(0,20);save();
- alert(t("saved"));
+function toggleFavorite(){
+ const key=currentCategory.id+"_"+currentCategory.articles.indexOf(currentArticle);
+ if(state.favorites.includes(key))state.favorites=state.favorites.filter(x=>x!==key);else state.favorites.push(key);
+ save();updateFavoriteButton();
 }
-function resetProgress(){
- if(!confirm(t("resetConfirm")))return;
- state.xp=0;state.quizzes=0;state.favorites=[];save();
- renderBadges();
+function updateFavoriteButton(){const key=currentCategory.id+"_"+currentCategory.articles.indexOf(currentArticle);document.getElementById("favoriteBtn").textContent=state.favorites.includes(key)?(lang==="ar"?"★ محفوظ":"★ Saved"):(lang==="ar"?"☆ حفظ المقال":"☆ Save article")}
+function fillQuizCategories(){
+ document.getElementById("quizCategory").innerHTML=`<option value="all">${lang==="ar"?"كل المجالات":"All subjects"}</option>`+categories.map(c=>`<option value="${c.id}">${c.icon} ${c[lang]}</option>`).join("");
 }
-function renderBadges(){
- const badges=[
-  ["🌱","badge1",state.quizzes>=1],
-  ["🔎","badge2",state.quizzes>=3],
-  ["🧠","badge3",state.xp>=200]
- ];
- document.getElementById("badges").innerHTML=badges.map(b=>
- `<div class="panel" style="text-align:center;opacity:${b[2]?1:.45}">
- <div style="font-size:35px">${b[0]}</div><strong>${t(b[1])}</strong>
- <p style="color:var(--muted);font-size:12px">${b[2]?"✓":"🔒"}</p></div>`
- ).join("");
-}
-
-// General knowledge quiz
-const questions={
- ar:[
-  {q:"ما هو أكبر كوكب في المجموعة الشمسية؟",o:["الأرض","المشتري","المريخ","الزهرة"],a:1},
-  {q:"كم عدد قارات العالم؟",o:["5","6","7","8"],a:2},
-  {q:"ما عاصمة اليابان؟",o:["بكين","سيول","طوكيو","بانكوك"],a:2},
-  {q:"ما الغاز الذي تمتصه النباتات؟",o:["الأكسجين","ثاني أكسيد الكربون","النيتروجين","الهيدروجين"],a:1},
-  {q:"كم لاعباً في فريق كرة القدم داخل الملعب؟",o:["9","10","11","12"],a:2}
- ],
- en:[
-  {q:"What is the largest planet in our solar system?",o:["Earth","Jupiter","Mars","Venus"],a:1},
-  {q:"How many continents are there?",o:["5","6","7","8"],a:2},
-  {q:"What is the capital of Japan?",o:["Beijing","Seoul","Tokyo","Bangkok"],a:2},
-  {q:"Which gas do plants absorb?",o:["Oxygen","Carbon dioxide","Nitrogen","Hydrogen"],a:1},
-  {q:"How many players are on a football team on the field?",o:["9","10","11","12"],a:2}
- ]
-};
-let qi=0,score=0,answered=false;
 function startQuiz(){
- qi=0;score=0;answered=false;
- document.getElementById("quizStart").style.display="none";
- document.getElementById("quizResult").style.display="none";
- document.getElementById("quizArea").style.display="block";
- renderQuestion();
+ const cat=document.getElementById("quizCategory").value,diff=document.getElementById("difficulty").value,count=Number(document.getElementById("questionCount").value);
+ let pool=questions.filter(q=>(cat==="all"||q[0]===cat)&&(diff==="all"||q[1]===diff));
+ if(pool.length===0){document.getElementById("quizArea").innerHTML='<div class="notice">لا توجد أسئلة لهذا الاختيار حالياً.</div>';return}
+ quizQuestions=pool.sort(()=>Math.random()-.5).slice(0,Math.min(count,pool.length));
+ qIndex=0;score=0;answered=false;showQuestion();
 }
-function renderQuestion(){
- const list=questions[state.lang];
- const q=list[qi];answered=false;
- document.getElementById("questionCount").textContent=(qi+1)+"/"+list.length;
- document.getElementById("quizScore").textContent=score+" XP";
- document.getElementById("quizProgress").style.width=(qi/list.length*100)+"%";
- document.getElementById("questionText").textContent=q.q;
- document.getElementById("feedback").textContent="";
- document.getElementById("nextQuestion").style.display="none";
- document.getElementById("options").innerHTML=q.o.map((o,i)=>
- `<button class="quiz-option" onclick="answerQ(${i})">${o}</button>`
- ).join("");
+function showQuestion(){
+ const area=document.getElementById("quizArea"),q=quizQuestions[qIndex];
+ area.innerHTML=`<div class="question-box"><div class="article-meta"><span class="pill">${lang==="ar"?"السؤال":"Question"} ${qIndex+1} / ${quizQuestions.length}</span><span class="muted">${score} ${lang==="ar"?"صحيح":"correct"}</span></div><div class="progress"><div style="width:${qIndex/quizQuestions.length*100}%"></div></div><h3>${q[2]}</h3><div class="answers">${q[3].map((a,i)=>`<button class="answer" onclick="chooseAnswer(${i})">${String.fromCharCode(65+i)}. ${a}</button>`).join("")}</div><div id="feedback"></div></div>`;
+ answered=false;
 }
-function answerQ(i){
+function chooseAnswer(index){
  if(answered)return;answered=true;
- const q=questions[state.lang][qi];
- const buttons=document.querySelectorAll(".quiz-option");
- buttons[q.a].classList.add("correct");
- if(i===q.a){
-  score+=20;
-  document.getElementById("feedback").textContent=t("correct");
- }else{
-  buttons[i].classList.add("wrong");
-  document.getElementById("feedback").textContent=t("wrong");
- }
- document.getElementById("quizScore").textContent=score+" XP";
- document.getElementById("nextQuestion").style.display="inline-block";
+ const q=quizQuestions[qIndex],buttons=document.querySelectorAll(".answer");
+ buttons[q[4]].classList.add("correct");
+ if(index===q[4]){score++;state.correct++;state.xp+=10;document.getElementById("feedback").innerHTML=`<div class="notice">✓ ${lang==="ar"?"إجابة صحيحة!":"Correct!"} ${q[5]}</div>`}
+ else{buttons[index].classList.add("wrong");document.getElementById("feedback").innerHTML=`<div class="notice">✗ ${lang==="ar"?"إجابة غير صحيحة.":"Incorrect."} ${q[5]}</div>`}
+ state.total++;save();
+ document.getElementById("feedback").innerHTML+=`<button class="btn" style="margin-top:12px" onclick="nextQuestion()">${qIndex===quizQuestions.length-1?(lang==="ar"?"عرض النتيجة":"See result"):(lang==="ar"?"السؤال التالي ←":"Next question →")}</button>`;
 }
-function nextQ(){
- qi++;
- if(qi<questions[state.lang].length){renderQuestion();return;}
- state.xp+=score;state.quizzes++;save();renderBadges();
- document.getElementById("quizArea").style.display="none";
- const result=document.getElementById("quizResult");
- result.style.display="block";
- result.innerHTML=`<div style="text-align:center">
- <div style="font-size:55px">🏆</div><h2>${t("result")}</h2>
- <h3>${t("yourScore")}: ${score/20}/5</h3>
- <p>${t("earned")}: +${score} XP</p>
- <button class="primary-btn" onclick="startQuiz()">${t("tryAgain")}</button>
- </div>`;
+function nextQuestion(){
+ qIndex++;if(qIndex<quizQuestions.length){showQuestion();return}
+ state.done++;state.history.unshift({score,total:quizQuestions.length,date:new Date().toLocaleDateString()});state.history=state.history.slice(0,8);save();
+ document.getElementById("quizArea").innerHTML=`<div class="panel" style="text-align:center"><div style="font-size:55px">🏆</div><h2>${lang==="ar"?"انتهى الاختبار!":"Quiz completed!"}</h2><h1 style="color:var(--primary)">${score} / ${quizQuestions.length}</h1><p>${lang==="ar"?"حصلت على":"You earned"} ${score*10} XP</p><p class="muted">${lang==="ar"?"واصل التعلم وحاول تحسين نتيجتك.":"Keep learning and try to improve your score."}</p><button class="btn" onclick="startQuiz()">${lang==="ar"?"اختبار جديد":"New quiz"}</button> <button class="btn alt" onclick="showPage('profile')">${lang==="ar"?"ملفي":"My profile"}</button></div>`;
 }
-applyTheme();
-applyLanguage();
-updateStats();
+function renderProfile(){
+ updateStats();
+ const achievements=[["🌱","أول خطوة",state.done>=1],["🧠","5 اختبارات",state.done>=5],["🏅","10 اختبارات",state.done>=10],["⭐","100 نقطة",state.xp>=100],["🚀","500 نقطة",state.xp>=500],["📚","حافظ المقالات",state.favorites.length>=5]];
+ document.getElementById("achievements").innerHTML=achievements.map(a=>`<span class="badge" style="opacity:${a[2]?1:.4}">${a[0]} ${a[1]} ${a[2]?"✓":"🔒"}</span>`).join("");
+ document.getElementById("history").innerHTML=state.history.length?state.history.map(h=>`<div class="article-card">${h.score}/${h.total} <span class="muted">· ${h.date}</span></div>`).join(""):`<p class="muted">${lang==="ar"?"لم تكمل أي اختبار بعد.":"No completed quizzes yet."}</p>`;
+}
+function changeName(){let n=prompt(lang==="ar"?"اكتب الاسم الذي تريد عرضه:":"Enter your display name:",state.name);if(n&&n.trim()){state.name=n.trim().slice(0,24);save();renderProfile()}}
+if(state.theme==="dark"){document.body.classList.add("dark");document.getElementById("themeBtn").textContent="☀️"}
+if(lang==="en"){document.documentElement.lang="en";document.documentElement.dir="ltr";document.getElementById("langBtn").textContent="العربية";document.querySelectorAll("[data-en]").forEach(el=>el.textContent=el.dataset.en)}
+updateStats();renderCategories();fillQuizCategories();
 </script>
 </body>
 </html>
-
