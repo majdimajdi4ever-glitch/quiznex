@@ -1,1 +1,492 @@
 
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#101b35">
+<title>QUIZNEX | Think. Play. Discover.</title>
+<style>
+:root{
+ --bg:#f3f6fc;--surface:#fff;--surface2:#eaf0fa;
+ --text:#17233d;--muted:#71809a;--primary:#3868e8;
+ --cyan:#20b9b3;--purple:#8662e8;--gold:#e9a936;
+ --border:#e2e8f2;--shadow:0 8px 28px #263b6410;
+}
+body.dark{
+ --bg:#0c1426;--surface:#15213a;--surface2:#1d2c49;
+ --text:#f0f4ff;--muted:#a2b0ca;--primary:#7196ff;
+ --cyan:#43d3ca;--purple:#a88aff;--gold:#f4c15e;
+ --border:#2b3b59;--shadow:0 8px 28px #0003;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--text);
+ font-family:Arial,"Segoe UI",sans-serif;transition:.2s}
+button,input{font:inherit}
+button{cursor:pointer}
+.topbar{height:70px;background:var(--surface);border-bottom:1px solid var(--border);
+ display:flex;align-items:center;justify-content:space-between;padding:0 5%;
+ position:sticky;top:0;z-index:10}
+.logo{font-size:24px;font-weight:900;letter-spacing:1px}
+.logo span{color:var(--primary)}
+.top-actions{display:flex;align-items:center;gap:10px}
+.small-btn{border:1px solid var(--border);background:var(--surface2);
+ color:var(--text);padding:9px 12px;border-radius:12px;font-weight:bold}
+.layout{display:flex;max-width:1450px;margin:auto;min-height:calc(100vh - 70px)}
+.sidebar{width:230px;padding:24px 15px;border-left:1px solid var(--border)}
+body[dir="ltr"] .sidebar{border-left:0;border-right:1px solid var(--border)}
+.nav-label{font-size:11px;color:var(--muted);padding:12px;font-weight:bold}
+.nav-btn{width:100%;display:flex;align-items:center;gap:12px;
+ border:0;background:transparent;color:var(--muted);padding:13px;
+ border-radius:12px;text-align:inherit;margin:3px 0;font-weight:bold}
+.nav-btn.active,.nav-btn:hover{background:var(--surface2);color:var(--primary)}
+.nav-icon{font-size:19px;width:25px;text-align:center}
+.main{flex:1;min-width:0;padding:28px 30px 100px}
+.welcome{background:linear-gradient(115deg,#14294e,#2456a4 65%,#277d9c);
+ color:white;border-radius:23px;padding:30px;position:relative;overflow:hidden;
+ box-shadow:var(--shadow)}
+.welcome:after{content:"✦";position:absolute;font-size:170px;opacity:.09;
+ right:65%;top:-55px}
+.welcome h1{font-size:30px;margin:0 0 10px}
+.welcome p{color:#d8e6ff;margin:0;line-height:1.8}
+.welcome .cta{margin-top:20px;background:white;color:#214b91;border:0;
+ padding:12px 19px;border-radius:12px;font-weight:bold}
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin:22px 0}
+.stat{background:var(--surface);border:1px solid var(--border);
+ padding:17px;border-radius:17px;box-shadow:var(--shadow)}
+.stat .symbol{font-size:22px}
+.stat strong{display:block;font-size:23px;margin:9px 0 4px}
+.stat small{color:var(--muted)}
+.section-head{display:flex;align-items:center;justify-content:space-between;
+ gap:10px;margin:30px 0 15px}
+.section-head h2{font-size:21px;margin:0}
+.section-head button{border:0;background:none;color:var(--primary);font-weight:bold}
+.cards{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}
+.card{background:var(--surface);border:1px solid var(--border);
+ border-radius:17px;overflow:hidden;box-shadow:var(--shadow);min-width:0}
+.card img{width:100%;height:145px;object-fit:cover;display:block;background:var(--surface2)}
+.card-body{padding:15px}
+.card h3{margin:0 0 8px;font-size:17px}
+.card p{color:var(--muted);font-size:13px;line-height:1.7;margin:0 0 13px}
+.tag{font-size:11px;background:var(--surface2);color:var(--primary);
+ border-radius:20px;padding:6px 10px;display:inline-block;margin-bottom:10px}
+.primary-btn{background:var(--primary);color:white;border:0;border-radius:11px;
+ padding:10px 14px;font-weight:bold}
+.secondary-btn{background:var(--surface2);color:var(--text);
+ border:1px solid var(--border);border-radius:11px;padding:10px 14px}
+.panel{background:var(--surface);border:1px solid var(--border);
+ border-radius:18px;padding:20px;box-shadow:var(--shadow)}
+.page{display:none}.page.active{display:block}
+.search{width:100%;padding:14px 16px;border-radius:13px;
+ border:1px solid var(--border);background:var(--surface);color:var(--text);margin-bottom:15px}
+.profile-top{display:flex;align-items:center;gap:18px;margin-bottom:20px}
+.avatar{width:75px;height:75px;border-radius:22px;background:linear-gradient(135deg,var(--primary),var(--purple));
+ display:grid;place-items:center;color:white;font-size:32px}
+.progress{height:10px;background:var(--surface2);border-radius:20px;overflow:hidden}
+.progress div{height:100%;background:linear-gradient(90deg,var(--primary),var(--cyan));width:0}
+.quiz-option{display:block;width:100%;text-align:inherit;margin:10px 0;
+ padding:14px;border-radius:12px;border:1px solid var(--border);
+ background:var(--surface2);color:var(--text)}
+.quiz-option:hover{border-color:var(--primary)}
+.quiz-option.correct{background:#d7f5e9;color:#126b49;border-color:#30b980}
+.quiz-option.wrong{background:#ffe2e2;color:#9b3030;border-color:#e77}
+.bottom-nav{display:none}
+.empty{padding:35px;text-align:center;color:var(--muted)}
+footer{text-align:center;color:var(--muted);padding:35px 10px;font-size:12px}
+@media(max-width:850px){
+ .sidebar{width:190px}.main{padding:22px 18px 90px}
+ .cards{grid-template-columns:repeat(2,minmax(0,1fr))}
+ .stats{grid-template-columns:repeat(2,1fr)}
+}
+@media(max-width:600px){
+ .topbar{height:62px;padding:0 15px}.logo{font-size:21px}
+ .sidebar{display:none}.main{padding:17px 13px 95px}
+ .welcome{padding:23px 19px}.welcome h1{font-size:25px}
+ .cards{grid-template-columns:1fr 1fr;gap:10px}
+ .card img{height:105px}.card-body{padding:11px}
+ .card h3{font-size:14px}.card p{font-size:12px}
+ .stats{gap:9px}.stat{padding:13px}
+ .stat strong{font-size:20px}
+ .bottom-nav{display:flex;position:fixed;bottom:0;left:0;right:0;
+ background:var(--surface);border-top:1px solid var(--border);
+ justify-content:space-around;padding:9px 2px calc(9px + env(safe-area-inset-bottom));
+ z-index:20}
+ .bottom-nav button{background:none;border:0;color:var(--muted);
+ font-size:10px;display:flex;flex-direction:column;gap:4px;align-items:center}
+ .bottom-nav button.active{color:var(--primary);font-weight:bold}
+ .bottom-nav span{font-size:19px}
+ .top-actions{gap:5px}.small-btn{padding:8px}
+}
+</style>
+</head>
+<body>
+<header class="topbar">
+ <div class="logo">QUIZ<span>NEX</span></div>
+ <div class="top-actions">
+  <button class="small-btn" id="langBtn">🇬🇧 EN</button>
+  <button class="small-btn" id="themeBtn">🌙</button>
+ </div>
+</header>
+
+<div class="layout">
+<aside class="sidebar">
+ <div class="nav-label" data-t="menu">القائمة الرئيسية</div>
+ <button class="nav-btn active" data-page="home"><span class="nav-icon">⌂</span><span data-t="home">الرئيسية</span></button>
+ <button class="nav-btn" data-page="explore"><span class="nav-icon">📚</span><span data-t="explore">الموسوعات</span></button>
+ <button class="nav-btn" data-page="quizzes"><span class="nav-icon">🧠</span><span data-t="quizzes">الاختبارات</span></button>
+ <button class="nav-btn" data-page="ranking"><span class="nav-icon">🏆</span><span data-t="ranking">الترتيب</span></button>
+ <div class="nav-label" data-t="account">حسابي</div>
+ <button class="nav-btn" data-page="profile"><span class="nav-icon">👤</span><span data-t="profile">ملفي الشخصي</span></button>
+</aside>
+
+<main class="main">
+<section class="page active" id="home">
+ <div class="welcome">
+  <h1 data-t="welcome">أهلاً بك في عالم المعرفة!</h1>
+  <p data-t="welcomeText">اكتشف معلومات جديدة، اختبر ذكاءك، واصنع إنجازاتك.</p>
+  <button class="cta" onclick="showPage('explore')" data-t="discover">ابدأ الاستكشاف ←</button>
+ </div>
+ <div class="stats">
+  <div class="stat"><span class="symbol">⚡</span><strong id="homeXP">0</strong><small data-t="points">نقاط الخبرة XP</small></div>
+  <div class="stat"><span class="symbol">🧠</span><strong id="homeQuizzes">0</strong><small data-t="completed">اختبارات مكتملة</small></div>
+  <div class="stat"><span class="symbol">🏅</span><strong id="homeLevel">1</strong><small data-t="level">المستوى</small></div>
+  <div class="stat"><span class="symbol">⭐</span><strong id="homeFav">0</strong><small data-t="favorites">المفضلة</small></div>
+ </div>
+ <div class="section-head"><h2 data-t="featured">استكشف المجالات</h2><button onclick="showPage('explore')" data-t="viewAll">عرض الكل ←</button></div>
+ <div class="cards" id="homeCategories"></div>
+ <div class="section-head"><h2 data-t="challenge">تحدي المعرفة</h2></div>
+ <div class="panel">
+  <h3 data-t="dailyTitle">هل أنت مستعد لتحدي اليوم؟</h3>
+  <p data-t="dailyText">اختبر معلوماتك واكسب نقاط خبرة جديدة.</p>
+  <button class="primary-btn" onclick="showPage('quizzes')" data-t="startQuiz">ابدأ الاختبار</button>
+ </div>
+</section>
+
+<section class="page" id="explore">
+ <div class="section-head"><h2 data-t="encyclopedias">الموسوعات المعرفية</h2></div>
+ <input class="search" id="searchInput" placeholder="ابحث عن مجال..." data-placeholder="search">
+ <div class="cards" id="allCategories"></div>
+</section>
+
+<section class="page" id="quizzes">
+ <div class="section-head"><h2 data-t="quizCenter">مركز الاختبارات</h2></div>
+ <div id="quizStart" class="panel">
+  <h3 data-t="testYourself">اختبر معلوماتك!</h3>
+  <p data-t="quizDescription">ابدأ اختبار المعلومات العامة. كل إجابة صحيحة تمنحك نقاط خبرة.</p>
+  <button class="primary-btn" onclick="startQuiz()" data-t="startNow">ابدأ الآن</button>
+ </div>
+ <div id="quizArea" class="panel" style="display:none">
+  <div style="display:flex;justify-content:space-between;gap:10px">
+   <span id="questionCount"></span><span id="quizScore"></span>
+  </div>
+  <div class="progress" style="margin:15px 0"><div id="quizProgress"></div></div>
+  <h3 id="questionText"></h3>
+  <div id="options"></div>
+  <p id="feedback" aria-live="polite"></p>
+  <button class="primary-btn" id="nextQuestion" style="display:none" onclick="nextQ()" data-t="next">التالي</button>
+ </div>
+ <div id="quizResult" class="panel" style="display:none"></div>
+</section>
+
+<section class="page" id="ranking">
+ <div class="section-head"><h2 data-t="hall">لوحة الشرف</h2></div>
+ <div class="panel">
+  <h3 data-t="localRanking">ترتيبك على هذا الجهاز</h3>
+  <p data-t="rankingNote">هذا ترتيب محلي تجريبي. الترتيب العالمي يحتاج حسابات وخادماً في المستقبل.</p>
+  <div style="font-size:45px;text-align:center;margin:15px">🏆</div>
+  <div style="display:flex;justify-content:space-between;padding:15px;background:var(--surface2);border-radius:12px">
+   <strong data-t="you">أنت — زائر</strong><strong id="rankXP">0 XP</strong>
+  </div>
+ </div>
+ <div class="section-head"><h2 data-t="achievements">الإنجازات</h2></div>
+ <div class="cards" id="badges"></div>
+</section>
+
+<section class="page" id="profile">
+ <div class="section-head"><h2 data-t="myProfile">ملفي الشخصي</h2></div>
+ <div class="panel">
+  <div class="profile-top">
+   <div class="avatar">👤</div>
+   <div><h2 id="guestName">Guest</h2><p style="color:var(--muted);margin:5px 0" data-t="guestMode">وضع الزائر • الحفظ على هذا الجهاز</p></div>
+  </div>
+  <label data-t="changeName">اسمك في QUIZNEX</label>
+  <input class="search" style="margin-top:10px" id="nameInput" maxlength="20" placeholder="اكتب اسمك">
+  <button class="primary-btn" onclick="saveName()" data-t="saveName">حفظ الاسم</button>
+  <div class="section-head"><h3 data-t="yourProgress">تقدمك</h3></div>
+  <p><span data-t="level">المستوى</span>: <strong id="profileLevel">1</strong></p>
+  <div class="progress"><div id="levelProgress"></div></div>
+  <p style="color:var(--muted);font-size:12px" id="progressText"></p>
+  <div class="stats">
+   <div class="stat"><strong id="profileXP">0</strong><small>XP</small></div>
+   <div class="stat"><strong id="profileQuizzes">0</strong><small data-t="completed">اختبارات مكتملة</small></div>
+  </div>
+  <button class="secondary-btn" onclick="resetProgress()" data-t="reset">إعادة ضبط التقدم</button>
+ </div>
+</section>
+<footer>QUIZNEX © 2026 — Think. Play. Discover.</footer>
+</main>
+</div>
+
+<nav class="bottom-nav">
+ <button class="active" data-page="home"><span>⌂</span><b data-t="home">الرئيسية</b></button>
+ <button data-page="explore"><span>📚</span><b data-t="explore">الموسوعات</b></button>
+ <button data-page="quizzes"><span>🧠</span><b data-t="quizzes">الاختبارات</b></button>
+ <button data-page="ranking"><span>🏆</span><b data-t="ranking">الترتيب</b></button>
+ <button data-page="profile"><span>👤</span><b data-t="profile">ملفي</b></button>
+</nav>
+
+<script>
+const translations={
+ ar:{
+ menu:"القائمة الرئيسية",home:"الرئيسية",explore:"الموسوعات",quizzes:"الاختبارات",
+ ranking:"الترتيب",profile:"ملفي الشخصي",account:"حسابي",
+ welcome:"أهلاً بك في عالم المعرفة!",welcomeText:"اكتشف معلومات جديدة، اختبر ذكاءك، واصنع إنجازاتك.",
+ discover:"ابدأ الاستكشاف ←",points:"نقاط الخبرة XP",completed:"اختبارات مكتملة",
+ level:"المستوى",favorites:"المفضلة",featured:"استكشف المجالات",viewAll:"عرض الكل ←",
+ challenge:"تحدي المعرفة",dailyTitle:"هل أنت مستعد لتحدي اليوم؟",
+ dailyText:"اختبر معلوماتك واكسب نقاط خبرة جديدة.",startQuiz:"ابدأ الاختبار",
+ encyclopedias:"الموسوعات المعرفية",search:"ابحث عن مجال...",
+ quizCenter:"مركز الاختبارات",testYourself:"اختبر معلوماتك!",
+ quizDescription:"ابدأ اختبار المعلومات العامة. كل إجابة صحيحة تمنحك نقاط خبرة.",
+ startNow:"ابدأ الآن",next:"التالي",hall:"لوحة الشرف",
+ localRanking:"ترتيبك على هذا الجهاز",
+ rankingNote:"هذا ترتيب محلي تجريبي. الترتيب العالمي يحتاج حسابات وخادماً في المستقبل.",
+ you:"أنت — زائر",achievements:"الإنجازات",myProfile:"ملفي الشخصي",
+ guestMode:"وضع الزائر • الحفظ على هذا الجهاز",changeName:"اسمك في QUIZNEX",
+ saveName:"حفظ الاسم",yourProgress:"تقدمك",reset:"إعادة ضبط التقدم",
+ correct:"إجابة صحيحة! أحسنت.",wrong:"إجابة غير صحيحة. حاول مرة أخرى في الاختبار القادم.",
+ result:"انتهى الاختبار!",yourScore:"نتيجتك",earned:"نقاط الخبرة المكتسبة",
+ tryAgain:"حاول مجدداً",noResults:"لا توجد مجالات مطابقة.",
+ saved:"تم حفظ اسمك!",resetConfirm:"هل أنت متأكد من إعادة ضبط تقدمك؟",
+ badge1:"بداية الرحلة",badge2:"مستكشف المعرفة",badge3:"عقل متقد",
+ catFootball:"كرة القدم",catSpace:"الفضاء",catScience:"العلوم",
+ catHistory:"التاريخ",catGeography:"الجغرافيا",catTech:"التكنولوجيا",
+ descFootball:"اكتشف عالم اللاعبين والأندية والبطولات.",descSpace:"رحلة بين الكواكب والنجوم والمجرات.",
+ descScience:"اكتشف أسرار الطبيعة والعلوم.",descHistory:"تعرف على الحضارات والأحداث التاريخية.",
+ descGeography:"اكتشف الدول والقارات والعجائب الطبيعية.",
+ descTech:"تعرف على التقنية والابتكارات الحديثة.",
+ articles:"مقالات قريباً",startCategory:"استكشف"
+ },
+ en:{
+ menu:"MAIN MENU",home:"Home",explore:"Encyclopedias",quizzes:"Quizzes",
+ ranking:"Leaderboard",profile:"My Profile",account:"ACCOUNT",
+ welcome:"Welcome to the world of knowledge!",welcomeText:"Discover new facts, test your mind and build your achievements.",
+ discover:"Start exploring →",points:"Experience points XP",completed:"Completed quizzes",
+ level:"Level",favorites:"Favorites",featured:"Explore categories",viewAll:"View all →",
+ challenge:"Knowledge challenge",dailyTitle:"Ready for today's challenge?",
+ dailyText:"Test your knowledge and earn new experience points.",startQuiz:"Start quiz",
+ encyclopedias:"Knowledge encyclopedias",search:"Search categories...",
+ quizCenter:"Quiz center",testYourself:"Test your knowledge!",
+ quizDescription:"Start a general knowledge quiz. Every correct answer earns experience points.",
+ startNow:"Start now",next:"Next",hall:"Hall of Fame",
+ localRanking:"Your ranking on this device",
+ rankingNote:"This is a local demo ranking. A global leaderboard requires accounts and a server in the future.",
+ you:"You — Guest",achievements:"Achievements",myProfile:"My Profile",
+ guestMode:"Guest mode • Saved on this device",changeName:"Your QUIZNEX name",
+ saveName:"Save name",yourProgress:"Your progress",reset:"Reset progress",
+ correct:"Correct answer! Well done.",wrong:"Incorrect answer. Try again next time.",
+ result:"Quiz completed!",yourScore:"Your score",earned:"XP earned",
+ tryAgain:"Try again",noResults:"No matching categories.",
+ saved:"Your name has been saved!",resetConfirm:"Are you sure you want to reset your progress?",
+ badge1:"First steps",badge2:"Knowledge explorer",badge3:"Brilliant mind",
+ catFootball:"Football",catSpace:"Space",catScience:"Science",
+ catHistory:"History",catGeography:"Geography",catTech:"Technology",
+ descFootball:"Discover players, clubs and competitions.",descSpace:"Explore planets, stars and galaxies.",
+ descScience:"Discover the secrets of nature and science.",descHistory:"Explore civilizations and historical events.",
+ descGeography:"Discover countries, continents and natural wonders.",
+ descTech:"Explore technology and modern innovations.",
+ articles:"Articles coming soon",startCategory:"Explore"
+ }
+};
+
+const categories=[
+ {id:"Football",icon:"⚽",img:"https://images.unsplash.com/photo-1522778119026-d647f0596c20?w=700",key:"catFootball",desc:"descFootball"},
+ {id:"Space",icon:"🌌",img:"https://images.unsplash.com/photo-1446776811953-b23d57bd21aa?w=700",key:"catSpace",desc:"descSpace"},
+ {id:"Science",icon:"🔬",img:"https://images.unsplash.com/photo-1532094349884-543bc11b234d?w=700",key:"catScience",desc:"descScience"},
+ {id:"History",icon:"🏛️",img:"https://images.unsplash.com/photo-1566127444979-b3d2b654e3d7?w=700",key:"catHistory",desc:"descHistory"},
+ {id:"Geography",icon:"🌍",img:"https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=700",key:"catGeography",desc:"descGeography"},
+ {id:"Tech",icon:"💻",img:"https://images.unsplash.com/photo-1518770660439-4636190af475?w=700",key:"catTech",desc:"descTech"}
+];
+
+let state=JSON.parse(localStorage.getItem("qn_state")||"null")||{
+ name:"Guest",xp:0,quizzes:0,favorites:[],theme:"light",lang:"ar"
+};
+function save(){
+ localStorage.setItem("qn_state",JSON.stringify(state));
+ updateStats();
+}
+function t(key){return translations[state.lang][key]||key}
+function applyLanguage(){
+ document.documentElement.lang=state.lang;
+ document.documentElement.dir=state.lang==="ar"?"rtl":"ltr";
+ document.querySelectorAll("[data-t]").forEach(el=>{
+  el.textContent=t(el.dataset.t);
+ });
+ document.querySelectorAll("[data-placeholder]").forEach(el=>{
+  el.placeholder=t(el.dataset.placeholder);
+ });
+ document.getElementById("langBtn").textContent=state.lang==="ar"?"🇬🇧 EN":"🇸🇦 AR";
+ renderCategories();
+ renderBadges();
+}
+function applyTheme(){
+ document.body.classList.toggle("dark",state.theme==="dark");
+ document.getElementById("themeBtn").textContent=state.theme==="dark"?"☀️":"🌙";
+}
+document.getElementById("langBtn").onclick=()=>{
+ state.lang=state.lang==="ar"?"en":"ar";save();applyLanguage();
+};
+document.getElementById("themeBtn").onclick=()=>{
+ state.theme=state.theme==="dark"?"light":"dark";save();applyTheme();
+};
+function showPage(id){
+ document.querySelectorAll(".page").forEach(p=>p.classList.remove("active"));
+ document.getElementById(id).classList.add("active");
+ document.querySelectorAll("[data-page]").forEach(b=>{
+  b.classList.toggle("active",b.dataset.page===id);
+ });
+ window.scrollTo({top:0,behavior:"smooth"});
+}
+document.querySelectorAll("[data-page]").forEach(b=>{
+ b.addEventListener("click",()=>showPage(b.dataset.page));
+});
+function categoryCard(c){
+ return `<article class="card">
+ <img src="${c.img}" alt="${t(c.key)}" loading="lazy">
+ <div class="card-body"><span class="tag">${c.icon} QUIZNEX</span>
+ <h3>${t(c.key)}</h3><p>${t(c.desc)}</p>
+ <button class="secondary-btn" onclick="comingSoon()">${t("startCategory")}</button>
+ </div></article>`;
+}
+function renderCategories(){
+ const html=categories.map(categoryCard).join("");
+ document.getElementById("homeCategories").innerHTML=html;
+ document.getElementById("allCategories").innerHTML=html;
+}
+document.getElementById("searchInput").addEventListener("input",e=>{
+ const q=e.target.value.toLowerCase();
+ const filtered=categories.filter(c=>
+  (t(c.key)+" "+c.id).toLowerCase().includes(q)
+ );
+ document.getElementById("allCategories").innerHTML=
+ filtered.length?filtered.map(categoryCard).join():
+ `<div class="empty">${t("noResults")}</div>`;
+});
+function comingSoon(){
+ alert(t("articles"));
+}
+function updateStats(){
+ const level=Math.floor(state.xp/100)+1;
+ const progress=state.xp%100;
+ ["homeXP","profileXP","rankXP"].forEach(id=>{
+  const el=document.getElementById(id);if(el)el.textContent=state.xp+(id==="rankXP"?" XP":"");
+ });
+ document.getElementById("homeQuizzes").textContent=state.quizzes;
+ document.getElementById("profileQuizzes").textContent=state.quizzes;
+ document.getElementById("homeLevel").textContent=level;
+ document.getElementById("profileLevel").textContent=level;
+ document.getElementById("homeFav").textContent=state.favorites.length;
+ document.getElementById("levelProgress").style.width=progress+"%";
+ document.getElementById("progressText").textContent=
+ state.xp+" XP • "+progress+"/100 XP";
+ document.getElementById("guestName").textContent=state.name;
+ document.getElementById("nameInput").value=state.name==="Guest"?"":state.name;
+}
+function saveName(){
+ const name=document.getElementById("nameInput").value.trim();
+ if(!name)return;
+ state.name=name.slice(0,20);save();
+ alert(t("saved"));
+}
+function resetProgress(){
+ if(!confirm(t("resetConfirm")))return;
+ state.xp=0;state.quizzes=0;state.favorites=[];save();
+ renderBadges();
+}
+function renderBadges(){
+ const badges=[
+  ["🌱","badge1",state.quizzes>=1],
+  ["🔎","badge2",state.quizzes>=3],
+  ["🧠","badge3",state.xp>=200]
+ ];
+ document.getElementById("badges").innerHTML=badges.map(b=>
+ `<div class="panel" style="text-align:center;opacity:${b[2]?1:.45}">
+ <div style="font-size:35px">${b[0]}</div><strong>${t(b[1])}</strong>
+ <p style="color:var(--muted);font-size:12px">${b[2]?"✓":"🔒"}</p></div>`
+ ).join("");
+}
+
+// General knowledge quiz
+const questions={
+ ar:[
+  {q:"ما هو أكبر كوكب في المجموعة الشمسية؟",o:["الأرض","المشتري","المريخ","الزهرة"],a:1},
+  {q:"كم عدد قارات العالم؟",o:["5","6","7","8"],a:2},
+  {q:"ما عاصمة اليابان؟",o:["بكين","سيول","طوكيو","بانكوك"],a:2},
+  {q:"ما الغاز الذي تمتصه النباتات؟",o:["الأكسجين","ثاني أكسيد الكربون","النيتروجين","الهيدروجين"],a:1},
+  {q:"كم لاعباً في فريق كرة القدم داخل الملعب؟",o:["9","10","11","12"],a:2}
+ ],
+ en:[
+  {q:"What is the largest planet in our solar system?",o:["Earth","Jupiter","Mars","Venus"],a:1},
+  {q:"How many continents are there?",o:["5","6","7","8"],a:2},
+  {q:"What is the capital of Japan?",o:["Beijing","Seoul","Tokyo","Bangkok"],a:2},
+  {q:"Which gas do plants absorb?",o:["Oxygen","Carbon dioxide","Nitrogen","Hydrogen"],a:1},
+  {q:"How many players are on a football team on the field?",o:["9","10","11","12"],a:2}
+ ]
+};
+let qi=0,score=0,answered=false;
+function startQuiz(){
+ qi=0;score=0;answered=false;
+ document.getElementById("quizStart").style.display="none";
+ document.getElementById("quizResult").style.display="none";
+ document.getElementById("quizArea").style.display="block";
+ renderQuestion();
+}
+function renderQuestion(){
+ const list=questions[state.lang];
+ const q=list[qi];answered=false;
+ document.getElementById("questionCount").textContent=(qi+1)+"/"+list.length;
+ document.getElementById("quizScore").textContent=score+" XP";
+ document.getElementById("quizProgress").style.width=(qi/list.length*100)+"%";
+ document.getElementById("questionText").textContent=q.q;
+ document.getElementById("feedback").textContent="";
+ document.getElementById("nextQuestion").style.display="none";
+ document.getElementById("options").innerHTML=q.o.map((o,i)=>
+ `<button class="quiz-option" onclick="answerQ(${i})">${o}</button>`
+ ).join("");
+}
+function answerQ(i){
+ if(answered)return;answered=true;
+ const q=questions[state.lang][qi];
+ const buttons=document.querySelectorAll(".quiz-option");
+ buttons[q.a].classList.add("correct");
+ if(i===q.a){
+  score+=20;
+  document.getElementById("feedback").textContent=t("correct");
+ }else{
+  buttons[i].classList.add("wrong");
+  document.getElementById("feedback").textContent=t("wrong");
+ }
+ document.getElementById("quizScore").textContent=score+" XP";
+ document.getElementById("nextQuestion").style.display="inline-block";
+}
+function nextQ(){
+ qi++;
+ if(qi<questions[state.lang].length){renderQuestion();return;}
+ state.xp+=score;state.quizzes++;save();renderBadges();
+ document.getElementById("quizArea").style.display="none";
+ const result=document.getElementById("quizResult");
+ result.style.display="block";
+ result.innerHTML=`<div style="text-align:center">
+ <div style="font-size:55px">🏆</div><h2>${t("result")}</h2>
+ <h3>${t("yourScore")}: ${score/20}/5</h3>
+ <p>${t("earned")}: +${score} XP</p>
+ <button class="primary-btn" onclick="startQuiz()">${t("tryAgain")}</button>
+ </div>`;
+}
+applyTheme();
+applyLanguage();
+updateStats();
+</script>
+</body>
+</html>
+
